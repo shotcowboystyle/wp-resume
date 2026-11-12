@@ -1,0 +1,208 @@
+/*
+Theme Name: CB Resume
+Theme URI: https://github.com/shotcowboystyle/wp-resume
+Author: Curtis Blanton
+Author URI: https://shotcowboystyle.github.io
+Description: Full-screen, slide-by-slide resume block theme. Pairs with the CB Resume Blocks plugin.
+Version: 1.0.0
+Requires at least: 6.6
+Requires PHP: 8.1
+License: GPL-2.0-or-later
+Text Domain: cb-resume
+*/
+
+/* Archivo's width axis: the expanded cut is the display voice. */
+:where(h1, h2, h3, h4, .wp-block-heading) { font-stretch: 125%; }
+
+/* ---------- Slides: a core/group block style ---------- */
+
+body { counter-reset: slide; }
+
+[class*="is-style-slide"] {
+	--shape: var(--wp--preset--color--gold);
+	position: relative;
+	isolation: isolate;
+	overflow: clip;
+	min-height: 100svh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-block: var(--wp--preset--spacing--60) !important;
+	padding-inline: var(--wp--preset--spacing--40) !important;
+	counter-increment: slide;
+	scroll-snap-align: start;
+	scroll-margin-top: var(--wp-admin--admin-bar--height, 0px);
+}
+
+/* Margin from blockGap would break the full-screen rhythm. */
+.wp-site-blocks > main > [class*="is-style-slide"],
+.entry-content > [class*="is-style-slide"] { margin-block: 0; }
+
+[class*="is-style-slide"] > * { position: relative; z-index: 2; }
+
+/* The big circle. */
+[class*="is-style-slide"]::before {
+	content: "";
+	position: absolute;
+	z-index: 0;
+	border-radius: 50%;
+	background: var(--shape);
+	width: min(72rem, 120vw);
+	aspect-ratio: 1;
+	left: 62%;
+	top: 52%;
+	transition: transform 1.2s var(--wp--custom--ease);
+}
+
+/* Hairline waves. */
+[class*="is-style-slide"]::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	background: url("assets/img/waves.svg") 0 0 / cover no-repeat;
+}
+
+.is-style-slide-sage { --shape: var(--wp--preset--color--sage); }
+.is-style-slide-sage::before { width: min(34rem, 70vw); left: -12rem; top: -10rem; }
+
+.is-style-slide-terracotta { --shape: var(--wp--preset--color--terracotta); }
+.is-style-slide-terracotta::before { width: min(22rem, 50vw); left: auto; right: -9rem; top: -9rem; }
+
+.is-style-slide-cream { background: var(--wp--preset--color--cream); --shape: var(--wp--preset--color--gold); }
+.is-style-slide-cream::before { width: 9rem; left: -3rem; top: 46%; }
+.is-style-slide-cream::after { transform: scaleX(-1); }
+
+/* Section number above each slide's first h2. */
+[class*="is-style-slide"] > .wp-block-heading:is(h2):first-child::before {
+	content: counter(slide, decimal-leading-zero) " /";
+	display: block;
+	margin-bottom: 1rem;
+	font-family: var(--wp--preset--font-family--body);
+	font-size: 0.8125rem;
+	font-weight: 700;
+	letter-spacing: 0.2em;
+	color: var(--wp--preset--color--gold-ink);
+}
+
+/* Eyebrow paragraph style. */
+.is-style-eyebrow {
+	font-size: 0.8125rem;
+	font-weight: 700;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--gold-ink);
+}
+
+/* Outline button style. */
+.wp-block-button.is-style-outline > .wp-block-button__link {
+	background: transparent;
+	color: var(--wp--preset--color--ink);
+	border: 2px solid currentColor;
+}
+.wp-block-button.is-style-outline > .wp-block-button__link:hover {
+	background: var(--wp--preset--color--ink);
+	color: var(--wp--preset--color--paper);
+}
+
+/* ---------- Scroll snapping ---------- */
+
+@media (min-height: 640px) and (min-width: 782px) {
+	html { scroll-snap-type: y proximity; }
+}
+
+/* ---------- Reveal on enter (JS adds .cb-js and .is-active) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+	.cb-js [class*="is-style-slide"] > * {
+		opacity: 0;
+		transform: translateX(-3rem);
+		transition: opacity 0.7s var(--wp--custom--ease), transform 0.9s var(--wp--custom--ease);
+	}
+	.cb-js [class*="is-style-slide"]:nth-of-type(even) > * { transform: translateX(3rem); }
+	.cb-js [class*="is-style-slide"].is-active > * { opacity: 1; transform: none; }
+	.cb-js [class*="is-style-slide"]::before { transform: scale(0.55); }
+	.cb-js [class*="is-style-slide"].is-active::before { transform: none; }
+
+	.cb-js .is-active > :nth-child(2) { transition-delay: 0.08s; }
+	.cb-js .is-active > :nth-child(3) { transition-delay: 0.16s; }
+	.cb-js .is-active > :nth-child(4) { transition-delay: 0.24s; }
+	.cb-js .is-active > :nth-child(5) { transition-delay: 0.32s; }
+	.cb-js .is-active > :nth-child(n+6) { transition-delay: 0.4s; }
+
+	/* Bars and rings fill when their slide arrives. */
+	.cb-js .wp-block-cb-skill { --fill: 0; }
+	.cb-js .is-active .wp-block-cb-skill { --fill: var(--value); }
+}
+
+/* ---------- Header and dot nav ---------- */
+
+.cb-header {
+	position: fixed;
+	z-index: 50;
+	inset-inline: 0;
+	top: var(--wp-admin--admin-bar--height, 0px);
+	padding: 1.25rem var(--wp--preset--spacing--40);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	background: rgb(255 255 255 / 0.72);
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}
+.cb-header p { margin: 0; }
+.cb-header .cb-logo {
+	margin: 0;
+	font-family: var(--wp--preset--font-family--display);
+	font-stretch: 125%;
+	font-size: 0.9375rem;
+	font-weight: 800;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+.cb-header .cb-logo a { text-decoration: none; }
+.cb-header .cb-header-links { display: flex; gap: 1.5rem; font-size: 0.875rem; font-weight: 600; }
+.cb-header .cb-header-links a { text-decoration: none; }
+.cb-header .cb-header-links a:hover { text-decoration: underline; }
+
+.cb-dots {
+	position: fixed;
+	z-index: 50;
+	right: 1.25rem;
+	top: 50%;
+	transform: translateY(-50%);
+	display: grid;
+	gap: 0.75rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.cb-dots a {
+	display: block;
+	width: 0.75rem;
+	height: 0.75rem;
+	border-radius: 50%;
+	border: 2px solid var(--wp--preset--color--ink);
+	transition: background 0.3s, transform 0.3s;
+}
+.cb-dots a[aria-current="true"] { background: var(--wp--preset--color--ink); transform: scale(1.25); }
+.cb-dots a:focus-visible { outline: 2px solid var(--wp--preset--color--gold); outline-offset: 3px; }
+
+/* Below 600px WordPress stops pinning the admin bar. */
+@media (max-width: 600px) { .cb-header { top: 0; } }
+
+@media (max-width: 781px) {
+	.cb-dots, .cb-header .cb-header-links { display: none; }
+	[class*="is-style-slide"] { min-height: auto; }
+	[class*="is-style-slide"]::before { opacity: 0.35; }
+}
+
+/* Visually hidden helper. */
+.screen-reader-text:not(:focus) {
+	position: absolute !important;
+	width: 1px; height: 1px; overflow: hidden;
+	clip: rect(1px, 1px, 1px, 1px); white-space: nowrap;
+}
+.skip-link:focus { z-index: 100; position: fixed; top: 1rem; left: 1rem; background: #fff; padding: 0.75rem 1rem; }

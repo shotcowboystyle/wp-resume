@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "cb/timeline-item",
+  "title": "Timeline entry",
+  "category": "cb-resume",
+  "icon": "calendar-alt",
+  "parent": [
+    "cb/timeline"
+  ],
+  "description": "One dated entry: role or project, organization, and details.",
+  "attributes": {
+    "start": {
+      "type": "string",
+      "default": ""
+    },
+    "end": {
+      "type": "string",
+      "default": ""
+    },
+    "title": {
+      "type": "string",
+      "default": ""
+    },
+    "org": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "allowedBlocks": [
+    "core/list",
+    "core/paragraph"
+  ],
+  "supports": {
+    "html": false,
+    "reusable": false
+  },
+  "textdomain": "cb-resume-blocks",
+  "editorScript": "file:./index.js",
+  "render": "file:./render.php"
+}

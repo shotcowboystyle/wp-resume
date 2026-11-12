@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cb/experiment",
+	"title": "A/B experiment",
+	"category": "cb-resume",
+	"icon": "randomize",
+	"description": "Server-side A/B split: picks Variant A or B per visitor, sticky by cookie, with no flicker. Pushes experiment_impression to the dataLayer. Force a variant for QA with ?cb_variant=a or b.",
+	"attributes": {
+		"experimentId": { "type": "string", "default": "lab-headline" },
+		"split": { "type": "number", "default": 50 }
+	},
+	"supports": { "html": false },
+	"textdomain": "cb-resume-blocks",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"render": "file:./render.php"
+}

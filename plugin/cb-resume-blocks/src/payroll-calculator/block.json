@@ -1,0 +1,22 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "cb/payroll-calculator",
+	"title": "Employer payroll cost calculator",
+	"category": "cb-resume",
+	"icon": "calculator",
+	"description": "What a hire really costs: salary plus 2026 employer Social Security, Medicare, FUTA and SUTA. Interactivity API front end; pushes calculator_start and calculator_complete to the dataLayer.",
+	"attributes": {
+		"salary": { "type": "number", "default": 60000 },
+		"employees": { "type": "number", "default": 10 },
+		"sutaRate": { "type": "number", "default": 2.7 },
+		"sutaWageBase": { "type": "number", "default": 14000 },
+		"payPeriods": { "type": "number", "default": 26 }
+	},
+	"supports": { "html": false, "interactivity": true, "anchor": true },
+	"textdomain": "cb-resume-blocks",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"viewScriptModule": "file:./view.js",
+	"render": "file:./render.php"
+}

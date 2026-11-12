@@ -1,0 +1,110 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/",
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"login": true,
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "wordpress-seo"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "duracelltomi-google-tag-manager"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "advanced-custom-fields"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "performance-lab"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "accessibility-checker"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "redirection"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "query-monitor"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "simple-history"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "activateTheme",
+			"themeFolderName": "cb-resume"
+		},
+		{
+			"step": "activatePlugin",
+			"pluginPath": "cb-resume-blocks/cb-resume-blocks.php"
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require '/wordpress/wp-load.php';\n// Skip first-run wizards so the resume is the first thing a visitor sees.\nupdate_option('wpseo', array_merge((array) get_option('wpseo'), ['should_redirect_after_install_free' => false, 'show_onboarding_notice' => false]));\ndelete_transient('_wpseo_activation_redirect');\nupdate_option('gtm4wp-options', array_merge((array) get_option('gtm4wp-options'), ['gtm-code' => '', 'gtm-datalayer-variable-name' => 'dataLayer']));\n// Open the editor straight onto the blocks, not the welcome tour.\nupdate_user_meta(1, 'wp_persisted_preferences', ['core/edit-post' => ['welcomeGuide' => false], 'core' => ['welcomeGuide' => false], '_modified' => gmdate('c')]);"
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require '/wordpress/wp-load.php'; cb_resume_seed();"
+		}
+	]
+}

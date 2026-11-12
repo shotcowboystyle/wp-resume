@@ -1,0 +1,38 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "cb/metric",
+  "title": "Metric",
+  "category": "cb-resume",
+  "icon": "performance",
+  "description": "A measured result with its source and as-of date, so the number can be checked.",
+  "attributes": {
+    "value": {
+      "type": "string",
+      "default": ""
+    },
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "source": {
+      "type": "string",
+      "default": ""
+    },
+    "asOf": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "color": {
+      "background": true,
+      "text": true
+    }
+  },
+  "textdomain": "cb-resume-blocks",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

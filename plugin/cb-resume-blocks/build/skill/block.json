@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "cb/skill",
+  "title": "Skill",
+  "category": "cb-resume",
+  "icon": "chart-bar",
+  "description": "A skill charted by years of hands-on use, as a bar or a ring. Years are checkable; self-rated percentages are not.",
+  "attributes": {
+    "label": {
+      "type": "string",
+      "default": ""
+    },
+    "years": {
+      "type": "number",
+      "default": 5
+    },
+    "since": {
+      "type": "number"
+    },
+    "display": {
+      "type": "string",
+      "enum": [
+        "bar",
+        "ring"
+      ],
+      "default": "bar"
+    },
+    "max": {
+      "type": "number",
+      "default": 20
+    }
+  },
+  "supports": {
+    "html": false
+  },
+  "textdomain": "cb-resume-blocks",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}

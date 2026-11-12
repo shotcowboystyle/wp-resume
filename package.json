@@ -1,0 +1,25 @@
+{
+  "name": "wp-resume",
+  "private": true,
+  "description": "Curtis Blanton's resume as a WordPress block theme + custom Gutenberg blocks, delivered as a Playground blueprint.",
+  "license": "GPL-2.0-or-later",
+  "scripts": {
+    "build": "wp-scripts build --webpack-src-dir=plugin/cb-resume-blocks/src --output-path=plugin/cb-resume-blocks/build --webpack-copy-php --experimental-modules",
+    "start": "wp-scripts start --webpack-src-dir=plugin/cb-resume-blocks/src --output-path=plugin/cb-resume-blocks/build --webpack-copy-php --experimental-modules",
+    "lint:js": "wp-scripts lint-js \"plugin/cb-resume-blocks/src/**/*.js\" theme/cb-resume/assets/js plugin/cb-resume-blocks/assets",
+    "test": "node --test plugin/cb-resume-blocks/src/payroll-calculator/calc.test.mjs",
+    "serve": "wp-playground-cli server --blueprint=dev/blueprint.dev.json --mount=./theme/cb-resume:/wordpress/wp-content/themes/cb-resume --mount=./plugin/cb-resume-blocks:/wordpress/wp-content/plugins/cb-resume-blocks --port=9400"
+  },
+  "devDependencies": {
+    "@wordpress/scripts": "^37.1.0",
+    "@wp-playground/cli": "^3.1.64"
+  },
+  "dependencies": {
+    "@wordpress/block-editor": "^20.0.0",
+    "@wordpress/blocks": "^17.1.0",
+    "@wordpress/components": "^44.0.0",
+    "@wordpress/i18n": "^7.1.0",
+    "@wordpress/interactivity": "^8.1.0",
+    "@wordpress/server-side-render": "^7.1.0"
+  }
+}

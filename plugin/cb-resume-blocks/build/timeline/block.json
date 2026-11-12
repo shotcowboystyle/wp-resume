@@ -1,0 +1,23 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "cb/timeline",
+  "title": "Timeline",
+  "category": "cb-resume",
+  "icon": "backup",
+  "description": "Vertical timeline of dated entries: jobs, projects, launches.",
+  "allowedBlocks": [
+    "cb/timeline-item"
+  ],
+  "supports": {
+    "anchor": true,
+    "align": [
+      "wide"
+    ],
+    "html": false
+  },
+  "textdomain": "cb-resume-blocks",
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "render": "file:./render.php"
+}
