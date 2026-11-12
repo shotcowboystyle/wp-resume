@@ -10,7 +10,7 @@ the whole site in your browser, logged in, with the editor a click away.
 
 | Path | What it is |
 | --- | --- |
-| `theme/cb-resume` | Block theme. `theme.json` tokens (palette, Archivo + DM Sans self-hosted variable fonts, fluid type), full-screen slides as `core/group` block styles, scroll-snap and an IntersectionObserver reveal (off under `prefers-reduced-motion`). No jQuery, no page builder. |
+| `theme/cb-resume` | Block theme. `theme.json` tokens (palette, Montserrat + Open Sans self-hosted variable fonts, fluid type), full-screen slides as `core/group` block styles, scroll-snap and IntersectionObserver fade-up reveals with per-letter headings (off under `prefers-reduced-motion`). No jQuery, no page builder. |
 | `plugin/cb-resume-blocks` | Custom blocks, each with `block.json` and a PHP `render.php`. |
 | `blueprint.json` | Installs the plugins below, the theme and blocks from this repo, then seeds the resume page. |
 | `dev/blueprint.dev.json` | Same, but for local dev with the folders mounted. |

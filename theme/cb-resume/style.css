@@ -11,9 +11,6 @@ License: GPL-2.0-or-later
 Text Domain: cb-resume
 */
 
-/* Archivo's width axis: the expanded cut is the display voice. */
-:where(h1, h2, h3, h4, .wp-block-heading) { font-stretch: 125%; }
-
 /* ---------- Slides: a core/group block style ---------- */
 
 body { counter-reset: slide; }
@@ -51,7 +48,7 @@ body { counter-reset: slide; }
 	aspect-ratio: 1;
 	left: 62%;
 	top: 52%;
-	transition: transform 1.2s var(--wp--custom--ease);
+	opacity: var(--o, 1);
 }
 
 /* Hairline waves. */
@@ -112,29 +109,50 @@ body { counter-reset: slide; }
 	html { scroll-snap-type: y proximity; }
 }
 
-/* ---------- Reveal on enter (JS adds .cb-js and .is-active) ---------- */
+/* ---------- Reveal on enter ----------
+   slides.js adds .is-in as each block (or heading) scrolls in, with --d staggering a batch.
+   Headings are split into .cb-char letters. The target list matches REVEAL in slides.js. */
 
 @media (prefers-reduced-motion: no-preference) {
-	.cb-js [class*="is-style-slide"] > * {
+	.cb-js :is(
+		[class*="is-style-slide"] > :not(.wp-block-cb-timeline, .wp-block-columns, h1, h2),
+		[class*="is-style-slide"] .wp-block-cb-timeline-item,
+		[class*="is-style-slide"] > .wp-block-columns > .wp-block-column > *
+	) {
 		opacity: 0;
-		transform: translateX(-3rem);
-		transition: opacity 0.7s var(--wp--custom--ease), transform 0.9s var(--wp--custom--ease);
+		transform: translateY(2rem);
+		transition:
+			opacity 0.8s ease-out var(--d, 0ms),
+			transform 1s var(--wp--custom--ease) var(--d, 0ms);
 	}
-	.cb-js [class*="is-style-slide"]:nth-of-type(even) > * { transform: translateX(3rem); }
-	.cb-js [class*="is-style-slide"].is-active > * { opacity: 1; transform: none; }
-	.cb-js [class*="is-style-slide"]::before { transform: scale(0.55); }
-	.cb-js [class*="is-style-slide"].is-active::before { transform: none; }
+	.cb-js :is(
+		[class*="is-style-slide"] > :not(.wp-block-cb-timeline, .wp-block-columns, h1, h2),
+		[class*="is-style-slide"] .wp-block-cb-timeline-item,
+		[class*="is-style-slide"] > .wp-block-columns > .wp-block-column > *
+	).is-in { opacity: 1; transform: none; }
 
-	.cb-js .is-active > :nth-child(2) { transition-delay: 0.08s; }
-	.cb-js .is-active > :nth-child(3) { transition-delay: 0.16s; }
-	.cb-js .is-active > :nth-child(4) { transition-delay: 0.24s; }
-	.cb-js .is-active > :nth-child(5) { transition-delay: 0.32s; }
-	.cb-js .is-active > :nth-child(n+6) { transition-delay: 0.4s; }
+	/* Headings stay hidden until split, then reveal letter by letter. */
+	.cb-js [class*="is-style-slide"] > :is(h1, h2):not(.cb-split) { opacity: 0; }
+	.cb-char {
+		display: inline-block;
+		opacity: 0;
+		transform: translateY(0.5em);
+		transition:
+			opacity 0.6s ease-out calc(var(--d, 0ms) + var(--i) * 28ms),
+			transform 0.8s var(--wp--custom--ease) calc(var(--d, 0ms) + var(--i) * 28ms);
+	}
+	.cb-split.is-in .cb-char { opacity: 1; transform: none; }
+	[class*="is-style-slide"] > h2.cb-split::before { opacity: 0; transition: opacity 0.6s ease-out var(--d, 0ms); }
+	[class*="is-style-slide"] > h2.cb-split.is-in::before { opacity: 1; }
 
-	/* Bars and rings fill when their slide arrives. */
+	.cb-js [class*="is-style-slide"]::before { transform: scale(0.85); opacity: 0; transition: transform 1.4s var(--wp--custom--ease), opacity 1s ease-out; }
+	.cb-js [class*="is-style-slide"].is-active::before { transform: none; opacity: var(--o, 1); }
+
+	/* Bars and rings fill once they are in. */
 	.cb-js .wp-block-cb-skill { --fill: 0; }
-	.cb-js .is-active .wp-block-cb-skill { --fill: var(--value); }
+	.cb-js .wp-block-cb-skill.is-in { --fill: var(--value); }
 }
+.cb-word { display: inline-block; white-space: nowrap; }
 
 /* ---------- Header and dot nav ---------- */
 
@@ -156,7 +174,6 @@ body { counter-reset: slide; }
 .cb-header .cb-logo {
 	margin: 0;
 	font-family: var(--wp--preset--font-family--display);
-	font-stretch: 125%;
 	font-size: 0.9375rem;
 	font-weight: 800;
 	letter-spacing: 0.04em;
@@ -196,7 +213,7 @@ body { counter-reset: slide; }
 @media (max-width: 781px) {
 	.cb-dots, .cb-header .cb-header-links { display: none; }
 	[class*="is-style-slide"] { min-height: auto; }
-	[class*="is-style-slide"]::before { opacity: 0.35; }
+	[class*="is-style-slide"] { --o: 0.35; }
 }
 
 /* Visually hidden helper. */
@@ -206,3 +223,6 @@ body { counter-reset: slide; }
 	clip: rect(1px, 1px, 1px, 1px); white-space: nowrap;
 }
 .skip-link:focus { z-index: 100; position: fixed; top: 1rem; left: 1rem; background: #fff; padding: 0.75rem 1rem; }
+
+/* Intro and contact are centered compositions; keep wrapped buttons centered too. */
+.is-style-slide-gold > .wp-block-buttons { justify-content: center; }

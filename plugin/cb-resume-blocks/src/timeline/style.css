@@ -24,10 +24,12 @@
 .wp-block-cb-timeline-item::before {
 	content: "";
 	position: absolute;
-	left: calc(10.5rem - 6px);
-	top: 0.45rem;
-	width: 14px;
-	height: 14px;
+	/* 20px dot centered on the 2px rail and on the 1.75rem date pill. */
+	box-sizing: border-box;
+	left: calc(10.5rem + 1px - 10px);
+	top: calc(0.875rem - 10px);
+	width: 20px;
+	height: 20px;
 	border-radius: 50%;
 	background: var(--wp--preset--color--paper, #fff);
 	border: 3px solid var(--wp--preset--color--gold, #b99e64);
@@ -36,7 +38,12 @@
 .wp-block-cb-timeline-item__date {
 	justify-self: start;
 	align-self: start;
-	padding: 0.3rem 0.65rem;
+	margin: 0;
+	padding: 0 0.65rem;
+	height: 1.75rem;
+	display: flex;
+	align-items: center;
+	line-height: 1;
 	border-radius: 2px;
 	background: var(--wp--preset--color--ink, #1f2044);
 	color: var(--wp--preset--color--paper, #fff);
@@ -45,7 +52,7 @@
 	letter-spacing: 0.08em;
 	white-space: nowrap;
 }
-.wp-block-cb-timeline-item__title { margin: 0; font-size: 1.125rem; }
+.wp-block-cb-timeline-item__title { margin: 0; font-size: 1.125rem; line-height: 1.75rem; }
 .wp-block-cb-timeline-item__org {
 	margin: 0.25rem 0 0.5rem;
 	color: var(--wp--preset--color--sage-ink, #2f6b5e);
@@ -56,7 +63,7 @@
 .wp-block-cb-timeline-item__body li { margin-bottom: 0.25rem; }
 
 @media (max-width: 781px) {
-	.wp-block-cb-timeline::before { left: 5px; }
+	.wp-block-cb-timeline::before { left: 9px; }
 	.wp-block-cb-timeline-item { grid-template-columns: 1fr; gap: 0.5rem; padding-left: 2rem; }
 	.wp-block-cb-timeline-item::before { left: 0; }
 }

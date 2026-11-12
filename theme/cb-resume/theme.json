@@ -26,37 +26,36 @@
 			"fontFamilies": [
 				{
 					"slug": "display",
-					"name": "Archivo Expanded",
-					"fontFamily": "\"Archivo\", \"Arial Black\", sans-serif",
+					"name": "Montserrat",
+					"fontFamily": "\"Montserrat\", \"Helvetica Neue\", Arial, sans-serif",
 					"fontFace": [
 						{
-							"fontFamily": "Archivo",
+							"fontFamily": "Montserrat",
 							"fontWeight": "100 900",
-							"fontStretch": "62% 125%",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
-							"src": ["file:./assets/fonts/archivo-latin-var.woff2"]
+							"src": ["file:./assets/fonts/montserrat-latin-var.woff2"]
 						}
 					]
 				},
 				{
 					"slug": "body",
-					"name": "DM Sans",
-					"fontFamily": "\"DM Sans\", system-ui, sans-serif",
+					"name": "Open Sans",
+					"fontFamily": "\"Open Sans\", system-ui, sans-serif",
 					"fontFace": [
 						{
-							"fontFamily": "DM Sans",
-							"fontWeight": "100 1000",
+							"fontFamily": "Open Sans",
+							"fontWeight": "300 800",
 							"fontStyle": "normal",
 							"fontDisplay": "swap",
-							"src": ["file:./assets/fonts/dm-sans-latin-var.woff2"]
+							"src": ["file:./assets/fonts/open-sans-latin-var.woff2"]
 						},
 						{
-							"fontFamily": "DM Sans",
-							"fontWeight": "100 1000",
+							"fontFamily": "Open Sans",
+							"fontWeight": "300 800",
 							"fontStyle": "italic",
 							"fontDisplay": "swap",
-							"src": ["file:./assets/fonts/dm-sans-latin-italic-var.woff2"]
+							"src": ["file:./assets/fonts/open-sans-latin-italic-var.woff2"]
 						}
 					]
 				}
