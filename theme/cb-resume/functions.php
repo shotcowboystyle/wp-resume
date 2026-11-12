@@ -81,13 +81,19 @@ function cb_resume_seed() {
 		throw new RuntimeException( $page_id->get_error_message() );
 	}
 
-	// Playground serves WordPress under a scoped path, so links are made absolute here.
+	// Playground serves WordPress under a scoped path, so links get the real path here.
+	// Root-relative: Playground's home_url() is http:// while the page is https://,
+	// and absolute links would be blocked as mixed content.
 	wp_update_post(
 		array(
 			'ID'           => $page_id,
 			'post_content' => wp_slash( str_replace(
 				array( '%THEME%', '%HOME%', '%PAGE_ID%' ),
-				array( get_stylesheet_directory_uri(), untrailingslashit( home_url() ), (string) $page_id ),
+				array(
+					wp_make_link_relative( get_stylesheet_directory_uri() ),
+					untrailingslashit( wp_make_link_relative( home_url( '/' ) ) ),
+					(string) $page_id,
+				),
 				$content
 			) ),
 		)
