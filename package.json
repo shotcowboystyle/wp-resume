@@ -8,7 +8,8 @@
     "start": "wp-scripts start --webpack-src-dir=plugin/cb-resume-blocks/src --output-path=plugin/cb-resume-blocks/build --webpack-copy-php --experimental-modules",
     "lint:js": "wp-scripts lint-js \"plugin/cb-resume-blocks/src/**/*.js\" theme/cb-resume/assets/js plugin/cb-resume-blocks/assets",
     "test": "node --test plugin/cb-resume-blocks/src/payroll-calculator/calc.test.mjs",
-    "serve": "wp-playground-cli server --blueprint=dev/blueprint.dev.json --mount=./theme/cb-resume:/wordpress/wp-content/themes/cb-resume --mount=./plugin/cb-resume-blocks:/wordpress/wp-content/plugins/cb-resume-blocks --port=9400"
+    "serve": "wp-playground-cli server --blueprint=dev/blueprint.dev.json --mount=./theme/cb-resume:/wordpress/wp-content/themes/cb-resume --mount=./plugin/cb-resume-blocks:/wordpress/wp-content/plugins/cb-resume-blocks --port=9400",
+    "content": "python3 tools/gen.py"
   },
   "devDependencies": {
     "@wordpress/scripts": "^37.1.0",

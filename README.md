@@ -50,6 +50,9 @@ pnpm build      # wp-scripts: blocks + Interactivity API view module
 pnpm test       # calculator math against hand-computed cases (node:test)
 pnpm lint:js
 pnpm serve      # Playground CLI on http://127.0.0.1:9400 with theme + plugin mounted
+pnpm content    # regenerate theme/cb-resume/content/resume.html from tools/gen.py
 ```
+
+Resume content lives in `tools/gen.py`, which writes the block markup the blueprint seeds. After `pnpm content`, restart `pnpm serve` to reseed the page.
 
 `plugin/cb-resume-blocks/build` is committed so the blueprint can install straight from git.
