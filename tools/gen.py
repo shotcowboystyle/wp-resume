@@ -111,14 +111,19 @@ S.append(slide('experience', 'slide-sage',
         ]),
     ], earlier_from=4),
 ))
+# PageSpeed Insights, mobile, median of three runs (same numbers as shotcowboystyle.github.io/results).
+def lighthouse(perf, a11y, bp, seo):
+    return f'Lighthouse, mobile (PageSpeed Insights, Nov 12, 2026): Performance {perf}, Accessibility {a11y}, Best practices {bp}, SEO {seo}.'
+
+
 S.append(slide('work', 'slide-terracotta',
     h('Selected work'),
     timeline([
-        ('2026', '', 'islasuds.com', 'Shopify Hydrogen · React · GSAP · GA4', ['Storefront and wholesale portal built in about a week. Monthly bar sales roughly doubled; a second wholesale retailer found the brand through the site.']),
-        ('2026', '', 'holycity.live', 'HTML · CSS · vanilla JavaScript · GA4', ['Four live Charleston dashboards on NOAA, USGS and FEMA data. No build step, no API keys. The rain model reproduces 12 of 15 city flood closures.']),
-        ('2026', '', 'kalmiawoods.com', 'Astro · React · Next.js · Postgres · GA4', ['Scroll-driven site for the family mountain retreat, plus a calendar app where family and friends reserve the cabin.']),
-        ('2026', '', 'barrierislandbonsai.com', 'Nuxt · Vue · Supabase · GA4', ['Specimen-by-specimen gallery and store, an admin app for the trees, and a WebGL Bonsai Studio.']),
-        ('2025', '', 'shotcowboystyle.github.io', 'Astro · TypeScript · GSAP · Three.js · Umami', ['Portfolio held to Lighthouse budgets and WCAG 2.1 AA, with Playwright and axe-core in CI.']),
+        ('2026', '', 'islasuds.com', 'Shopify Hydrogen · React · GSAP · GA4', ['Storefront and wholesale portal built in about a week. Monthly bar sales roughly doubled; a second wholesale retailer found the brand through the site.', lighthouse(99, 97, 100, 100)]),
+        ('2026', '', 'holycity.live', 'HTML · CSS · vanilla JavaScript · GA4', ['Four live Charleston dashboards on NOAA, USGS and FEMA data. No build step, no API keys. The rain model reproduces 12 of 15 city flood closures.', lighthouse(92, 100, 100, 100)]),
+        ('2026', '', 'kalmiawoods.com', 'Astro · React · Next.js · Postgres · GA4', ['Scroll-driven site for the family mountain retreat, plus a calendar app where family and friends reserve the cabin.', lighthouse(96, 100, 100, 100)]),
+        ('2026', '', 'barrierislandbonsai.com', 'Nuxt · Vue · Supabase · GA4', ['Specimen-by-specimen gallery and store, an admin app for the trees, and a WebGL Bonsai Studio.', lighthouse(91, 100, 100, 100)]),
+        ('2025', '', 'shotcowboystyle.github.io', 'Astro · TypeScript · GSAP · Three.js · Umami', ['Portfolio held to Lighthouse budgets and WCAG 2.1 AA, with Playwright and axe-core in CI.', lighthouse(100, 100, 100, 100)]),
     ]),
 ))
 S.append(slide('skills', 'slide-cream',
