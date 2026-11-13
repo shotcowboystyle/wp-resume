@@ -13,7 +13,12 @@ def h(text, level=2):
     a = {'level': level} if level != 2 else {}
     return f'<!-- wp:heading{attrs(a)} -->\n<h{level} class="wp-block-heading">{text}</h{level}>\n<!-- /wp:heading -->'
 def ul(items):
-    li = ''.join(f'<!-- wp:list-item -->\n<li>{i}</li>\n<!-- /wp:list-item -->' for i in items)
+    # An item is text, or (text, className) for a styled item.
+    def li(i):
+        t, cls = i if isinstance(i, tuple) else (i, None)
+        if not cls: return f'<!-- wp:list-item -->\n<li>{t}</li>\n<!-- /wp:list-item -->'
+        return f'<!-- wp:list-item{attrs({"className": cls})} -->\n<li class="{cls}">{t}</li>\n<!-- /wp:list-item -->'
+    li = ''.join(map(li, items))
     return f'<!-- wp:list -->\n<ul class="wp-block-list">{li}</ul>\n<!-- /wp:list -->'
 def buttons(*bs):
     out = []
@@ -37,7 +42,8 @@ def block(name, a=None, inner=None):
 def timeline(items, earlier_from=None):
     # Items from index earlier_from on get .is-earlier; the theme lays them out as a compact second column.
     def item(i, s, e, t, o, b):
-        a = {'start': s, 'end': e, 'title': t, 'org': o}
+        # <wbr> after dots lets long domain titles wrap there on narrow screens.
+        a = {'start': s, 'end': e, 'title': t.replace('.', '.<wbr>'), 'org': o}
         if earlier_from is not None and i >= earlier_from: a['className'] = 'is-earlier'
         return block('cb/timeline-item', a, ul(b))
     return block('cb/timeline', {'align': 'wide'}, '\n\n'.join(item(i, *x) for i, x in enumerate(items)))
@@ -112,8 +118,11 @@ S.append(slide('experience', 'slide-sage',
     ], earlier_from=4),
 ))
 # PageSpeed Insights, mobile, median of three runs (same numbers as shotcowboystyle.github.io/results).
+# Source and date live once in the note under the timeline; each item shows a score strip.
 def lighthouse(perf, a11y, bp, seo):
-    return f'Lighthouse, mobile (PageSpeed Insights, Nov 12, 2026): Performance {perf}, Accessibility {a11y}, Best practices {bp}, SEO {seo}.'
+    scores = ' '.join(f'<span class="cb-lh__score"><strong>{v}</strong> {k}</span>'
+                     for k, v in [('Performance', perf), ('Accessibility', a11y), ('Best practices', bp), ('SEO', seo)])
+    return (f'<span class="cb-lh__label">Lighthouse mobile</span> {scores}', 'cb-lh')
 
 
 S.append(slide('work', 'slide-terracotta',
@@ -125,6 +134,7 @@ S.append(slide('work', 'slide-terracotta',
         ('2026', '', 'barrierislandbonsai.com', 'Nuxt · Vue · Supabase · GA4', ['Specimen-by-specimen gallery and store, an admin app for the trees, and a WebGL Bonsai Studio.', lighthouse(91, 100, 100, 100)]),
         ('2025', '', 'shotcowboystyle.github.io', 'Astro · TypeScript · GSAP · Three.js · Umami', ['Portfolio held to Lighthouse budgets and WCAG 2.1 AA, with Playwright and axe-core in CI.', lighthouse(100, 100, 100, 100)]),
     ]),
+    p('Lighthouse scores: PageSpeed Insights, mobile, median of three runs, Nov 12, 2026.', 'cb-note'),
 ))
 S.append(slide('skills', 'slide-cream',
     h('Skills, in years'),

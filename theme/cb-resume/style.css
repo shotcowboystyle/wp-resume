@@ -125,7 +125,7 @@ body { counter-reset: slide; }
 }
 [class*="is-style-slide"] > h2:first-child + p { max-width: 52ch; text-wrap: pretty; color: var(--wp--preset--color--muted); }
 /* Narrow text blocks keep the column's left edge instead of centering or hugging the slide edge. */
-:is([class*="is-style-slide"] > h2:first-child + p, .cb-lede, #lab > p:last-child) {
+:is([class*="is-style-slide"] > h2:first-child + p, .cb-lede, #lab > p:last-child, #work > .cb-note) {
 	margin-left: max(0px, (100% - var(--wp--style--global--content-size)) / 2) !important;
 	margin-right: auto !important;
 }
@@ -260,6 +260,61 @@ body { counter-reset: slide; }
 	.cb-collapse { transition: grid-template-rows 0.7s var(--settle); }
 	.cb-collapse > div > * { transition: opacity 0.2s ease-out, translate 0.7s var(--spring); }
 	.is-open .cb-collapse > div > * { transition-delay: 0.08s; }
+}
+
+/* ---------- Selected work: Lighthouse strip ----------
+   A score row under each project, read like a receipt; source and date sit once in .cb-note. */
+
+.wp-block-cb-timeline-item__body li.cb-lh {
+	display: grid;
+	grid-template-columns: repeat(4, auto);
+	justify-content: start;
+	gap: 0.6rem 2rem;
+	width: fit-content;
+	margin: 0.85rem 0 0 -1.1rem;
+	padding: 0.75rem 1.1rem 0.8rem;
+	border-radius: 10px;
+	background: var(--wp--preset--color--cream);
+	box-shadow: inset 0 0 0 1px rgb(31 32 68 / 0.06);
+	line-height: 1.2;
+}
+.wp-block-cb-timeline-item__body li.cb-lh::before { content: none; }
+.cb-lh__label {
+	grid-column: 1 / -1;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid var(--wp--preset--color--line);
+	font-size: 0.6875rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--wp--preset--color--muted);
+}
+/* Number over its category, like a Lighthouse report row. */
+.cb-lh__score {
+	display: flex;
+	flex-direction: column;
+	gap: 0.15rem;
+	font-size: 0.75rem;
+	color: var(--wp--preset--color--muted);
+	white-space: nowrap;
+}
+.cb-lh__score strong {
+	font-family: var(--wp--preset--font-family--display);
+	font-size: 1.375rem;
+	font-weight: 800;
+	font-variant-numeric: tabular-nums;
+	color: var(--wp--preset--color--ink);
+}
+#work > .cb-note {
+	margin-top: 0.75rem;
+	padding-left: 12rem;
+	font-size: 0.8125rem;
+	color: var(--wp--preset--color--muted);
+}
+
+@media (max-width: 781px) {
+	.wp-block-cb-timeline-item__body li.cb-lh { grid-template-columns: repeat(2, auto); }
+	#work > .cb-note { padding-left: 2rem; }
 }
 
 /* ---------- Built ---------- */
