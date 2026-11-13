@@ -1,18 +1,55 @@
 .wp-block-cb-metric {
+	--accent: var(--wp--preset--color--gold, #b99e64);
+	--accent-ink: var(--wp--preset--color--gold-ink, #7d6633);
+	position: relative;
 	margin: 0;
-	padding: 1.5rem 1.5rem 1.25rem;
-	border-top: 3px solid var(--wp--preset--color--gold, #b99e64);
+	padding: 1.75rem 1.5rem 1.5rem;
+	border-radius: 6px;
 	background: var(--wp--preset--color--paper, #fff);
-	box-shadow: 0 1px 0 var(--wp--preset--color--line, #e1ddd6);
-	height: 100%;
+	box-shadow: 0 1px 0 rgb(31 32 68 / 0.06), 0 1.5rem 2.5rem -2rem rgb(31 32 68 / 0.25);
+	overflow: hidden;
+	transition: translate 0.7s var(--spring, ease-out), box-shadow 0.5s ease-out;
 }
+/* Accent tab along the top edge. */
+.wp-block-cb-metric::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto;
+	height: 4px;
+	background: var(--accent);
+}
+.wp-block-cb-metric:hover {
+	translate: 0 -6px;
+	box-shadow: 0 1px 0 rgb(31 32 68 / 0.06), 0 2.25rem 3rem -2rem rgb(31 32 68 / 0.35);
+}
+.wp-block-column:nth-child(4n + 2) > .wp-block-cb-metric { --accent: var(--wp--preset--color--sage, #5ca595); --accent-ink: var(--wp--preset--color--sage-ink, #2f6b5e); }
+.wp-block-column:nth-child(4n + 3) > .wp-block-cb-metric { --accent: var(--wp--preset--color--terracotta, #c06451); --accent-ink: #9a4636; }
+.wp-block-column:nth-child(4n + 4) > .wp-block-cb-metric { --accent: var(--wp--preset--color--ink, #1f2044); --accent-ink: var(--wp--preset--color--ink, #1f2044); }
+
 .wp-block-cb-metric__value {
-	margin: 0 0 0.5rem;
+	margin: 0 0 0.85rem;
 	font-family: var(--wp--preset--font-family--display, sans-serif);
 	font-weight: 800;
-	font-size: clamp(2.25rem, 4vw, 3.25rem);
+	font-size: clamp(2rem, 3vw, 2.75rem);
+	letter-spacing: -0.02em;
 	line-height: 1;
+	color: var(--accent-ink);
+	font-variant-numeric: tabular-nums;
 }
-.wp-block-cb-metric figcaption { display: grid; gap: 0.5rem; }
-.wp-block-cb-metric__label { font-weight: 600; line-height: 1.4; }
-.wp-block-cb-metric__source { font-size: 0.75rem; color: var(--wp--preset--color--muted, #5f6075); }
+.wp-block-cb-metric figcaption { display: grid; gap: 0.85rem; justify-items: start; }
+
+/* Side by side, cards share a height: pin the source to the bottom so the pills line up. */
+@media (min-width: 782px) {
+	.wp-block-cb-metric { height: 100%; display: flex; flex-direction: column; }
+	.wp-block-cb-metric figcaption { flex: 1; grid-template-rows: auto 1fr; }
+	.wp-block-cb-metric__source { align-self: end; }
+}
+.wp-block-cb-metric__label { font-weight: 600; line-height: 1.45; }
+.wp-block-cb-metric__source {
+	padding: 0.2rem 0.55rem;
+	border-radius: 99px;
+	background: var(--wp--preset--color--cream, #f5f4f0);
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: var(--wp--preset--color--muted, #5f6075);
+}

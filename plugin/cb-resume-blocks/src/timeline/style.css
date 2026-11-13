@@ -32,27 +32,31 @@
 	height: 20px;
 	border-radius: 50%;
 	background: var(--wp--preset--color--paper, #fff);
-	border: 3px solid var(--wp--preset--color--gold, #b99e64);
+	border: 3px solid var(--shape, var(--wp--preset--color--gold, #b99e64));
+	transition: scale 0.6s var(--bounce, ease-out);
 }
-.wp-block-cb-timeline-item:first-child::before { background: var(--wp--preset--color--gold, #b99e64); }
+.wp-block-cb-timeline-item:first-child::before { background: var(--shape, var(--wp--preset--color--gold, #b99e64)); }
+.wp-block-cb-timeline-item:hover::before { scale: 1.25; }
 .wp-block-cb-timeline-item__date {
-	justify-self: start;
+	/* Right-aligned so every pill ends the same distance from the rail. */
+	justify-self: end;
 	align-self: start;
 	margin: 0;
-	padding: 0 0.65rem;
+	padding: 0 0.75rem;
 	height: 1.75rem;
 	display: flex;
 	align-items: center;
 	line-height: 1;
-	border-radius: 2px;
+	border-radius: 99px;
 	background: var(--wp--preset--color--ink, #1f2044);
 	color: var(--wp--preset--color--paper, #fff);
 	font-size: 0.75rem;
 	font-weight: 700;
-	letter-spacing: 0.08em;
+	letter-spacing: 0.04em;
 	white-space: nowrap;
 }
-.wp-block-cb-timeline-item__title { margin: 0; font-size: 1.125rem; line-height: 1.75rem; }
+.wp-block-cb-timeline-item__title { margin: 0; font-size: 1.25rem; line-height: 1.75rem; }
+.wp-block-cb-timeline-item > :last-child { max-width: 68ch; }
 .wp-block-cb-timeline-item__org {
 	margin: 0.25rem 0 0.5rem;
 	color: var(--wp--preset--color--sage-ink, #2f6b5e);
@@ -65,6 +69,7 @@
 @media (max-width: 781px) {
 	.wp-block-cb-timeline::before { left: 9px; }
 	.wp-block-cb-timeline-item { grid-template-columns: 1fr; gap: 0.5rem; padding-left: 2rem; }
+	.wp-block-cb-timeline-item__date { justify-self: start; }
 	.wp-block-cb-timeline-item::before { left: 0; }
 }
 

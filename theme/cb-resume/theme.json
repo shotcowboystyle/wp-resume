@@ -3,7 +3,7 @@
 	"version": 3,
 	"settings": {
 		"appearanceTools": true,
-		"layout": { "contentSize": "960px", "wideSize": "1280px" },
+		"layout": { "contentSize": "1120px", "wideSize": "1120px" },
 		"color": {
 			"defaultPalette": false,
 			"defaultGradients": false,
@@ -64,8 +64,8 @@
 				{ "slug": "small", "name": "Small", "size": "0.875rem", "fluid": false },
 				{ "slug": "medium", "name": "Medium", "size": "1.0625rem", "fluid": false },
 				{ "slug": "large", "name": "Large", "size": "1.375rem", "fluid": { "min": "1.125rem", "max": "1.375rem" } },
-				{ "slug": "x-large", "name": "Extra large", "size": "2.5rem", "fluid": { "min": "1.75rem", "max": "2.5rem" } },
-				{ "slug": "huge", "name": "Huge", "size": "6rem", "fluid": { "min": "2.75rem", "max": "6rem" } }
+				{ "slug": "x-large", "name": "Extra large", "size": "3.75rem", "fluid": { "min": "2.25rem", "max": "3.75rem" } },
+				{ "slug": "huge", "name": "Huge", "size": "8.5rem", "fluid": { "min": "3.25rem", "max": "8.5rem" } }
 			]
 		},
 		"spacing": {
@@ -80,7 +80,10 @@
 		},
 		"custom": {
 			"radius": "2px",
-			"ease": "cubic-bezier(.2,.7,.2,1)"
+			"ease": "cubic-bezier(.2,.7,.2,1)",
+			"ease-spring": "linear(0, 0.063, 0.198, 0.368, 0.544, 0.697, 0.837, 0.947, 1.025, 1.075, 1.1, 1.108, 1.102, 1.087, 1.069, 1.052, 1.034, 1.019, 1.006, 0.998, 0.992, 0.989, 0.988, 0.989, 0.99, 0.992, 0.994, 0.996, 0.998, 0.999, 1)",
+			"ease-settle": "linear(0, 0.038, 0.115, 0.211, 0.304, 0.402, 0.493, 0.574, 0.645, 0.706, 0.755, 0.799, 0.836, 0.867, 0.892, 0.913, 0.93, 0.943, 0.954, 0.963, 0.97, 0.976, 0.981, 0.985, 0.988, 0.99, 0.992, 0.994, 0.995, 0.996, 0.997, 0.998, 0.999, 1)",
+			"ease-bounce": "linear(0, 0.143, 0.438, 0.767, 1.03, 1.209, 1.279, 1.261, 1.187, 1.095, 1.014, 0.954, 0.925, 0.923, 0.94, 0.965, 0.99, 1.008, 1.02, 1.022, 1.019, 1.012, 1.005, 0.999, 0.995, 0.994, 0.994, 0.996, 0.998, 1, 1.001, 1.002, 1.001, 1)"
 		}
 	},
 	"styles": {

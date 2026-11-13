@@ -49,7 +49,7 @@ S = []
 S.append(slide('intro', 'slide-gold',
     p('Senior Web Developer, Marketing', 'is-style-eyebrow'),
     h('Curtis<br>Blanton', 1),
-    p('I build marketing sites and own them after launch: WordPress, tracking, testing, integrations, speed and accessibility. Twenty years in, still shipping.', center=True),
+    p('I build marketing sites and own them after launch: WordPress, tracking, testing, integrations, speed and accessibility. Twenty years in, still shipping.', 'cb-lede'),
     buttons(('Download PDF resume', '%THEME%/assets/Curtis-Blanton-Resume.pdf', False), ('Try the lab', '#lab', True)),
 ))
 S.append(slide('results', 'slide-cream',
@@ -131,7 +131,7 @@ S.append(slide('lab', 'slide-sage',
         group('Variant A', p('Experiment variant A', 'is-style-eyebrow'), h('Payroll cost, in one number', 3)),
         group('Variant B', p('Experiment variant B', 'is-style-eyebrow'), h('What will your next hire really cost?', 3)),
     ])),
-    block('cb/payroll-calculator', {'align': 'wide'} if False else None),
+    block('cb/payroll-calculator'),
     p('This section is a live experiment. The headline above is one of two variants, chosen on the server with no flicker and kept by cookie. Add <code>?cb_variant=a</code> or <code>?cb_variant=b</code> to force one. Open the console and type <code>dataLayer</code> to see <code>experiment_impression</code>, <code>calculator_start</code> and <code>calculator_complete</code> fire, ready for GTM and GA4.'),
 ))
 S.append(slide('built', 'slide-terracotta',
@@ -153,8 +153,8 @@ S.append(slide('built', 'slide-terracotta',
 ))
 S.append(slide('contact', 'slide-gold',
     h('Let’s talk'),
-    p('Charleston, SC · Remote', center=True),
-    p('<a href="mailto:curt.blanton@gmail.com">curt.blanton@gmail.com</a><br><a href="tel:+18435138134">843.513.8134</a>', center=True),
+    p('Charleston, SC · Remote', 'is-style-eyebrow'),
+    p('<a href="mailto:curt.blanton@gmail.com">curt.blanton@gmail.com</a><br><a href="tel:+18435138134">843.513.8134</a>', 'cb-contact-lines'),
     buttons(('Email me', 'mailto:curt.blanton@gmail.com', False), ('Portfolio', 'https://shotcowboystyle.github.io', True), ('GitHub', 'https://github.com/shotcowboystyle', True)),
 ))
 out = '\n\n'.join(S) + '\n'
