@@ -63,8 +63,19 @@
 	font-weight: 700;
 }
 .wp-block-cb-timeline-item__body > :last-child { margin-bottom: 0; }
-.wp-block-cb-timeline-item__body ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
-.wp-block-cb-timeline-item__body li { margin-bottom: 0.25rem; }
+.wp-block-cb-timeline-item__body ul { margin: 0.5rem 0 0; padding-left: 1.1rem; list-style: none; }
+.wp-block-cb-timeline-item__body li { position: relative; margin-bottom: 0.25rem; }
+/* Accent dots instead of native markers, which collapsing panels would clip. */
+.wp-block-cb-timeline-item__body li::before {
+	content: "";
+	position: absolute;
+	left: -1.05rem;
+	top: 0.62em;
+	width: 0.35rem;
+	height: 0.35rem;
+	border-radius: 50%;
+	background: var(--shape, var(--wp--preset--color--gold, #b99e64));
+}
 
 @media (max-width: 781px) {
 	.wp-block-cb-timeline::before { left: 9px; }

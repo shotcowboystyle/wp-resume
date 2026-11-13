@@ -6,7 +6,7 @@ const motion = window.matchMedia(
 
 // Keep in sync with the reveal selectors in style.css.
 const REVEAL = [
-	'[class*="is-style-slide"] > :not(.wp-block-cb-timeline, .wp-block-columns, h1, h2)',
+	'[class*="is-style-slide"] > :not(.wp-block-cb-timeline, .wp-block-columns, .cb-experience-grid, h1, h2)',
 	'[class*="is-style-slide"] .wp-block-cb-timeline-item',
 	'[class*="is-style-slide"] > .wp-block-columns > .wp-block-column > *',
 ].join( ',' );
@@ -35,6 +35,90 @@ function animate( fn ) {
 	};
 	window.requestAnimationFrame( frame );
 }
+
+/* ---------- Experience: two columns, expandable roles ----------
+   Roles marked .is-earlier move into a compact list beside the main ones, and each role's
+   details fold behind a button on its title (newest open). Without JS it stays one open list. */
+
+document
+	.querySelectorAll( '#experience > .wp-block-cb-timeline' )
+	.forEach( ( list ) => {
+		const earlier = list.querySelectorAll( '.is-earlier' );
+		if ( ! earlier.length ) {
+			return;
+		}
+		const grid = document.createElement( 'div' );
+		grid.className = 'cb-experience-grid alignwide';
+		const aside = document.createElement( 'div' );
+		aside.className = 'cb-experience-earlier';
+		const label = document.createElement( 'p' );
+		label.className = 'is-style-eyebrow';
+		label.id = 'cb-earlier-label';
+		label.textContent = 'Earlier';
+		const ol = document.createElement( 'ol' );
+		ol.className = list.className;
+		ol.setAttribute( 'aria-labelledby', label.id );
+		// Compact rows: the date moves after the organization on one line.
+		earlier.forEach( ( item ) =>
+			item
+				.querySelector( '.wp-block-cb-timeline-item__org' )
+				?.after(
+					item.querySelector( '.wp-block-cb-timeline-item__date' )
+				)
+		);
+		ol.append( ...earlier );
+		aside.append( label, ol );
+		list.replaceWith( grid );
+		grid.append( list, aside );
+	} );
+
+document
+	.querySelectorAll( '#experience .wp-block-cb-timeline-item' )
+	.forEach( ( item, i ) => {
+		const body = item.querySelector( '.wp-block-cb-timeline-item__body' );
+		const details = [ ...body.children ].filter(
+			( el ) =>
+				! el.matches(
+					'.wp-block-cb-timeline-item__title, .wp-block-cb-timeline-item__org, .wp-block-cb-timeline-item__date'
+				)
+		);
+		if ( ! details.length ) {
+			return;
+		}
+		const title = body.querySelector( '.wp-block-cb-timeline-item__title' );
+		const panel = document.createElement( 'div' );
+		panel.className = 'cb-collapse';
+		panel.id = `cb-role-${ i + 1 }`;
+		const inner = document.createElement( 'div' );
+		inner.append( ...details );
+		panel.append( inner );
+		body.append( panel );
+
+		const button = document.createElement( 'button' );
+		button.type = 'button';
+		button.className = 'cb-role-toggle';
+		button.setAttribute( 'aria-controls', panel.id );
+		button.append( ...title.childNodes );
+		title.append( button );
+
+		const set = ( open ) => {
+			button.setAttribute( 'aria-expanded', String( open ) );
+			item.classList.toggle( 'is-open', open );
+			panel.inert = ! open;
+		};
+		item.cbSet = set;
+		set( i === 0 );
+		// One open role per list keeps the slide within a screen.
+		button.addEventListener( 'click', () => {
+			const open = button.getAttribute( 'aria-expanded' ) !== 'true';
+			if ( open ) {
+				item.parentElement
+					.querySelectorAll( ':scope > .is-open' )
+					.forEach( ( other ) => other.cbSet( false ) );
+			}
+			set( open );
+		} );
+	} );
 
 /* ---------- Dot nav, header underline, active slide ---------- */
 
