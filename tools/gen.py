@@ -141,8 +141,8 @@ S.append(slide('skills', 'slide-cream',
     p('Charted by years of hands-on use, not self-rated percentages. Years can be checked against the timeline.'),
     cols([skill('Web development', 20, 2002, 'ring'), skill('Owning marketing sites', 15, 2002, 'ring'), skill('Analytics &amp; tracking', 18, 2002, 'ring'), skill('Front-end frameworks', 17, 2009, 'ring')]),
     cols([
-        '\n\n'.join([skill('HTML &amp; CSS / SCSS', 20, 2002), skill('JavaScript', 20, 2002), skill('PHP &amp; MySQL', 7, 2002), skill('WordPress themes &amp; blocks', 10, 2003), skill('React', 7, 2016)]),
-        '\n\n'.join([skill('Google Tag Manager &amp; GA4', 6, 2018), skill('A/B &amp; multivariate testing', 5, 2018), skill('APIs, webhooks &amp; CRMs', 10, 2015), skill('AWS', 10, 2015), skill('TypeScript', 11, 2015)]),
+        '\n\n'.join([skill('HTML &amp; CSS / SCSS', 20, 2002), skill('JavaScript', 20, 2002), skill('PHP &amp; MySQL', 11, 2002), skill('WordPress themes &amp; blocks', 10, 2003), skill('React', 8, 2016)]),
+        '\n\n'.join([skill('Google Tag Manager &amp; GA4', 7, 2018), skill('A/B &amp; multivariate testing', 6, 2018), skill('APIs, webhooks &amp; CRMs', 10, 2015), skill('AWS', 10, 2015), skill('TypeScript', 11, 2015)]),
     ]),
 ))
 S.append(slide('lab', 'slide-sage',
