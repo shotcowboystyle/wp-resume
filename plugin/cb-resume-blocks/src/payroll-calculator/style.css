@@ -2,10 +2,16 @@
 	display: grid;
 	grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
 	gap: clamp(1.5rem, 4vw, 3.5rem);
-	padding: clamp(1.25rem, 3vw, 2.5rem);
+	padding: clamp(1rem, 2vw, 1.5rem);
 	background: var(--wp--preset--color--paper, #fff);
-	border: 1px solid var(--wp--preset--color--line, #e1ddd6);
-	border-radius: 2px;
+	border-radius: 10px;
+	box-shadow: 0 1px 0 rgb(31 32 68 / 0.06), 0 2.5rem 4rem -2.5rem rgb(31 32 68 / 0.4);
+}
+.cb-payroll__form { padding: clamp(0.5rem, 1.5vw, 1rem); }
+.cb-payroll__results {
+	padding: clamp(1.25rem, 2.5vw, 2rem);
+	border-radius: 6px;
+	background: var(--wp--preset--color--cream, #f5f4f0);
 }
 .cb-payroll__form { display: grid; gap: 0.9rem; align-content: start; }
 .cb-payroll__field { display: grid; gap: 0.3rem; margin: 0; }
@@ -14,17 +20,21 @@
 	font: inherit;
 	padding: 0.65rem 0.75rem;
 	border: 1px solid #8a8b9c;
-	border-radius: 2px;
+	border-radius: 6px;
 	background: #fff;
 	color: inherit;
+	transition: border-color 0.2s ease-out, box-shadow 0.3s ease-out;
 }
+.cb-payroll__field :is(input, select):hover { border-color: var(--wp--preset--color--ink, #1f2044); }
+.cb-payroll__field :is(input, select):focus { box-shadow: 0 0 0 4px rgb(185 158 100 / 0.25); }
 .cb-payroll__field :is(input, select):focus-visible { outline: 2px solid var(--wp--preset--color--gold, #b99e64); outline-offset: 1px; }
 .cb-payroll__results p { margin: 0; }
 .cb-payroll__eyebrow { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--wp--preset--color--gold-ink, #7d6633); }
 .cb-payroll__total {
 	font-family: var(--wp--preset--font-family--display, sans-serif);
 	font-weight: 800;
-	font-size: clamp(2.25rem, 5vw, 3.75rem);
+	font-size: clamp(2.25rem, 5vw, 4rem);
+	letter-spacing: -0.02em;
 	line-height: 1.05;
 	margin-block: 0.35rem !important;
 	font-variant-numeric: tabular-nums;
