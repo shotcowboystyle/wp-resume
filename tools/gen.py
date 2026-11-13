@@ -34,8 +34,13 @@ def slide(anchor, style, *blocks):
 def block(name, a=None, inner=None):
     if inner is None: return f'<!-- wp:{name}{attrs(a or {})} /-->'
     return f'<!-- wp:{name}{attrs(a or {})} -->\n{inner}\n<!-- /wp:{name} -->'
-def timeline(items):
-    return block('cb/timeline', {'align': 'wide'}, '\n\n'.join(block('cb/timeline-item', {'start': s, 'end': e, 'title': t, 'org': o}, ul(b)) for s, e, t, o, b in items))
+def timeline(items, earlier_from=None):
+    # Items from index earlier_from on get .is-earlier; the theme lays them out as a compact second column.
+    def item(i, s, e, t, o, b):
+        a = {'start': s, 'end': e, 'title': t, 'org': o}
+        if earlier_from is not None and i >= earlier_from: a['className'] = 'is-earlier'
+        return block('cb/timeline-item', a, ul(b))
+    return block('cb/timeline', {'align': 'wide'}, '\n\n'.join(item(i, *x) for i, x in enumerate(items)))
 def metric(v, l, s, d): return block('cb/metric', {'value': v, 'label': l, 'source': s, 'asOf': d})
 def skill(l, y, since, disp='bar'):
     a = {'label': l, 'years': y, 'since': since}
@@ -104,7 +109,7 @@ S.append(slide('experience', 'slide-sage',
         ('Jun 2002', 'Jul 2008', 'Director, IT Solutions', 'Zestra Laboratories', [
             'Ran the marketing site, e-commerce, analytics and conversion tracking for SEO and paid campaigns.',
         ]),
-    ]),
+    ], earlier_from=4),
 ))
 S.append(slide('work', 'slide-terracotta',
     h('Selected work'),
