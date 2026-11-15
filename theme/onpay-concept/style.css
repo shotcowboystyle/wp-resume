@@ -37,11 +37,34 @@ img { max-width: 100%; height: auto; }
 .op-nav .wp-block-navigation__submenu-container { padding: 12px 0; border: 0 !important; border-radius: 8px; box-shadow: var(--wp--preset--shadow--card); font-size: 14px; }
 .op-nav .wp-block-navigation__submenu-container .wp-block-navigation-item__content { padding: 6px 20px; }
 .op-header__actions { gap: 16px; }
-.op-header__actions .wp-block-button__link { min-width: 0; padding: 12px 16px; line-height: 1; border-radius: 8px; }
+.op-header__actions .wp-block-button__link { min-width: 0; padding: 12px 16px; line-height: 1; border-radius: 8px; white-space: nowrap; }
+
+/* Menu-only items: "Log in" wherever the header Login button is hidden,
+   "Get started" inside the open phone menu, which covers the header button. */
+.op-nav .op-nav__login, .op-nav .op-nav__cta { display: none; }
 
 @media (max-width: 1080px) {
 	.op-header__actions .is-style-outline-white { display: none; }
+	.op-nav .op-nav__login { display: flex; }
 }
+
+/* Six links plus Log in don't fit one row below 1080px, so the menu button
+   (core shows it only below 600px) takes over up to there. */
+@media (min-width: 600px) and (max-width: 1080px) {
+	.op-nav .wp-block-navigation__responsive-container-open:not(.always-shown),
+	.op-nav .wp-block-navigation__responsive-container-close:not(.always-shown) { display: flex; }
+	.op-nav .wp-block-navigation__responsive-container:not(.hidden-by-default):not(.is-menu-open) { display: none; }
+}
+
+/* Open phone menu: top-level links only, at a tappable size (every deep link
+   is also in the footer), then Log in and a Get started button. */
+.op-nav .is-menu-open .wp-block-navigation__submenu-container,
+.op-nav .is-menu-open .wp-block-navigation__submenu-icon { display: none !important; }
+.op-nav .is-menu-open .wp-block-navigation__container { gap: 4px; width: 100%; }
+.op-nav .is-menu-open .wp-block-navigation-item { width: 100%; }
+.op-nav .is-menu-open .wp-block-navigation-item__content { display: block; width: 100%; box-sizing: border-box; padding: 12px 0; color: var(--wp--preset--color--heading); font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+.op-nav .is-menu-open .op-nav__cta { display: flex; max-width: 420px; margin-top: 16px; }
+.op-nav .is-menu-open .op-nav__cta .wp-block-navigation-item__content { padding: 16px 24px; border-radius: var(--wp--custom--radius--button); background: var(--wp--preset--color--green-ink); color: var(--wp--preset--color--white); text-align: center; }
 
 /* ---- shared section rhythm (OnPay: .section-* 60px 20px, .inner-section-lg 1200px) ---- */
 .op-sec { padding: 60px 20px; }

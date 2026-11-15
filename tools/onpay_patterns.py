@@ -325,8 +325,9 @@ def control():
 
 # ---- shared chrome: header and footer (template parts) ----------------------
 
-def nav_link(label, url):
-    return f'<!-- wp:navigation-link {json.dumps({"label": label, "url": url, "kind": "custom"}, separators=(",", ":"))} /-->\n'
+def nav_link(label, url, className=None):
+    attrs = {"label": label, "url": url, "kind": "custom"} | ({"className": className} if className else {})
+    return f'<!-- wp:navigation-link {json.dumps(attrs, separators=(",", ":"))} /-->\n'
 
 
 def submenu(label, url, items):
@@ -344,6 +345,9 @@ def chrome():
         + submenu("Resources", OP + "/insights/", [("Payroll 101", "/insights/topic/payroll/"), ("HR basics", "/insights/topic/hr/"), ("Benefits guide", "/insights/topic/benefits/"), ("Payroll calculators", "/payroll/calculator-tax-rates/"), ("State compliance guides", "/business-guides/compliance/")])
         + submenu("For Accountants", OP + "/payroll/software/accountants/", [("Become a Partner", "/payroll/software/accountants/"), ("The Ledger: Accounting Resources", "/ledger/")])
         + nav_link("For Employees", "https://help.onpay.com/hc/en-us/articles/4406432366363-Requesting-access-to-your-Employee-Portal")
+        # Where the header's Login / Get started buttons are hidden or covered (narrow screens, open menu).
+        + nav_link("Log in", "https://app.onpay.com/app/login", "op-nav__login")
+        + nav_link("Get started", GET_STARTED, "op-nav__cta")
         + "<!-- /wp:navigation -->\n"
     )
     logo = '<!-- wp:image {"width":"150px","height":"31px","sizeSlug":"full","linkDestination":"custom","className":"op-logo"} -->\n<figure class="wp-block-image size-full is-resized op-logo"><a href="/"><img src="' + IMG + 'OnPay_Wordmark_White.svg" alt="OnPay home" style="width:150px;height:31px"/></a></figure>\n<!-- /wp:image -->\n'
@@ -364,7 +368,7 @@ def chrome():
 
     menu = columns(
         col(("Getting started", [("Get one month free", "/get-started/"), ("Switching providers", "/payroll/software/switch-payroll-companies/")]),
-            ("Pricing", [("Pricing starts at $55 per month", "/payroll/software/costs-pricing/")]),
+            ("Pricing", [("$49 a month + $6 per worker", "/payroll/software/costs-pricing/")]),
             ("Solutions", [("By industry", "/payroll/software/industries/"), ("For new businesses", "/payroll/software/payroll-for-new-businesses/"), ("For small businesses", "/payroll/software/payroll-for-small-businesses/"), ("For mid-sized businesses", "/payroll/software/industries/medium-size-businesses/"), ("W-2 workers", "/payroll/software/w-2-workers/"), ("Contractors", "/payroll/software/1099-workers/"), ("Remote teams", "/payroll/software/remote-workers/")])),
         col(("Products", [("Payroll", "/payroll/software/"), ("HR", "/hr/software/"), ("Benefits", "/benefits/small-business/"), ("Time Tracking", "/time-tracking/software/")]),
             ("Features", [("Direct deposit payroll", "/payroll/software/direct-deposit-service/"), ("Hiring and onboarding", "/hr/software/employee-onboarding/"), ("PTO management", "/hr/software/pto-tracking/"), ("Health insurance", "/benefits/small-business/health-insurance/"), ("Workers’ comp", "/benefits/small-business/workers-comp/"), ("401(k) retirement", "/benefits/small-business/401k/"), ("Employee self-service", "/payroll/software/employee-self-service/"), ("Custom reporting", "/payroll/software/payroll-reports/"), ("Org charts", "/hr/software/org-charts/"), ("Integrations", "/app-directory/"), ("Explore all features", "/payroll/software/features/")])),
@@ -385,7 +389,7 @@ def chrome():
     footer = group([
         menu,
         flogo,
-        para("Serving Clients for Over 30 Years", className="op-footer__copy", align="center"),
+        para("Serving Clients for 35+ Years", className="op-footer__copy", align="center"),
         social,
         para("Insurance offered through OnPay Insurance Agency, LLC (CA License #0L29422)", className="op-footer__copy", align="center"),
         para('<a href="' + OP + '/terms-and-conditions/">Terms and Conditions</a> | <a href="' + OP + '/privacy/">Privacy</a> | <a href="#cookie-settings">Manage Cookies</a> | <a href="' + OP + '/sitemap/">Sitemap</a>', className="op-footer__copy", align="center"),
