@@ -1,6 +1,7 @@
 # Writes theme/cb-resume/content/resume.html, the block markup cb_resume_seed() imports.
 # Edit the resume here, run `pnpm content`, then restart `pnpm serve` to reseed.
 import json, html, pathlib
+from urllib.parse import quote
 def esc(s): return html.escape(s, quote=False)
 def attrs(d): return (' ' + json.dumps(d, ensure_ascii=False, separators=(',', ':'))) if d else ''
 def p(text, cls=None, center=False):
@@ -20,13 +21,21 @@ def ul(items):
         return f'<!-- wp:list-item{attrs({"className": cls})} -->\n<li class="{cls}">{t}</li>\n<!-- /wp:list-item -->'
     li = ''.join(map(li, items))
     return f'<!-- wp:list -->\n<ul class="wp-block-list">{li}</ul>\n<!-- /wp:list -->'
-def buttons(*bs):
+def buttons(*bs, cls=None):
+    # A button is (text, href, outline[, new_tab[, icon]]); icon names a theme/assets/img/<icon>.svg drawn by style.css.
     out = []
-    for text, href, outline in bs:
-        a = {'className': 'is-style-outline'} if outline else {}
-        c = ' is-style-outline' if outline else ''
-        out.append(f'<!-- wp:button{attrs(a)} -->\n<div class="wp-block-button{c}"><a class="wp-block-button__link wp-element-button" href="{href}">{text}</a></div>\n<!-- /wp:button -->')
-    return '<!-- wp:buttons -->\n<div class="wp-block-buttons">' + '\n\n'.join(out) + '</div>\n<!-- /wp:buttons -->'
+    for text, href, outline, *opt in bs:
+        tab, icon = (opt + [False, None])[:2]
+        cn = ' '.join(x for x in ['is-style-outline' if outline else '', f'cb-icon cb-icon-{icon}' if icon else ''] if x)
+        a = {'className': cn} if cn else {}
+        if tab: a.update({'linkTarget': '_blank', 'rel': 'noreferrer noopener'})
+        c = f' {cn}' if cn else ''
+        t = ' target="_blank" rel="noreferrer noopener"' if tab else ''
+        label = f'{text}<span class="screen-reader-text"> (opens in a new tab)</span>' if tab else text
+        out.append(f'<!-- wp:button{attrs(a)} -->\n<div class="wp-block-button{c}"><a class="wp-block-button__link wp-element-button" href="{href}"{t}>{label}</a></div>\n<!-- /wp:button -->')
+    ba = {'className': cls} if cls else {}
+    bc = f' {cls}' if cls else ''
+    return f'<!-- wp:buttons{attrs(ba)} -->\n<div class="wp-block-buttons{bc}">' + '\n\n'.join(out) + '</div>\n<!-- /wp:buttons -->'
 def cols(cells, wide=True):
     a = {'align': 'wide'} if wide else {}
     c = ' alignwide' if wide else ''
@@ -55,6 +64,16 @@ def skill(l, y, since, disp='bar'):
 def group(cls, *blocks):
     a = {'metadata': {'name': cls}, 'className': 'cb-experiment__variant', 'layout': {'type': 'constrained'}}
     return f'<!-- wp:group{attrs(a)} -->\n<div class="wp-block-group cb-experiment__variant">' + '\n\n'.join(blocks) + '</div>\n<!-- /wp:group -->'
+
+# "Ask AI about me": prefilled prompts for each assistant, read from the portfolio (stable URL) plus LinkedIn and GitHub.
+SITE, LINKEDIN, GITHUB = 'https://shotcowboystyle.github.io/', 'https://www.linkedin.com/in/curtis-blanton/', 'https://github.com/shotcowboystyle'
+ASK = quote(f'Who is Curtis Blanton? Read {SITE} and {SITE}llms.txt, then his LinkedIn ({LINKEDIN}) and GitHub ({GITHUB}). Summarize what he builds, who he has worked with, and his strengths as a senior full-stack and creative developer. Use only verifiable information.', safe='')
+ASK_AI = [
+    ('ChatGPT', f'https://chatgpt.com/?hints=search&amp;q={ASK}'),
+    ('Claude', f'https://claude.ai/new?q={ASK}'),
+    ('Perplexity', f'https://www.perplexity.ai/search?q={ASK}'),
+    ('Google AI', 'https://www.google.com/search?udm=50&amp;q=' + quote('Who is Curtis Blanton, Charleston SC developer?', safe='')),
+]
 
 S = []
 S.append(slide('intro', 'slide-gold',
@@ -175,7 +194,9 @@ S.append(slide('contact', 'slide-gold',
     h('Let’s talk'),
     p('Charleston, SC · Remote', 'is-style-eyebrow'),
     p('<a href="mailto:curt.blanton@gmail.com">curt.blanton@gmail.com</a><br><a href="tel:+18435138134">843.513.8134</a>', 'cb-contact-lines'),
-    buttons(('Email me', 'mailto:curt.blanton@gmail.com', False), ('Portfolio', 'https://shotcowboystyle.github.io', True), ('GitHub', 'https://github.com/shotcowboystyle', True)),
+    buttons(('Email me', 'mailto:curt.blanton@gmail.com', False), ('Portfolio', 'https://shotcowboystyle.github.io', True), ('LinkedIn', LINKEDIN, True, False, 'linkedin'), ('GitHub', GITHUB, True, False, 'github')),
+    p('Ask AI about me', 'is-style-eyebrow cb-ask-label'),
+    buttons(*[(n, h_, True, True, n.split()[0].lower()) for n, h_ in ASK_AI], cls='cb-ask'),
 ))
 out = '\n\n'.join(S) + '\n'
 out_path = pathlib.Path(__file__).resolve().parent.parent / 'theme/cb-resume/content/resume.html'
