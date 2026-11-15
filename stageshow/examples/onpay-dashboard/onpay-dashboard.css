@@ -1,0 +1,264 @@
+/* OnPay dashboard. Every rule is scoped under .opd. */
+.opd {
+  & .ss-stage {
+    overflow: hidden;
+    background: var(--op-ground);
+    color: var(--ss-text-strong);
+    font: 14px/1.35 var(--ss-font);
+    --opd-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* The app: pinned under the payroll card, running off the bottom */
+  .opd-app {
+    position: absolute;
+    top: 72px;
+    left: 92px;
+    width: 776px;
+    height: 500px;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    grid-template-rows: 58px 1fr;
+    border-radius: var(--ss-radius-window);
+    background: var(--ss-surface);
+    box-shadow: 0 30px 60px rgba(4, 22, 66, 0.35);
+    overflow: hidden;
+  }
+
+  .opd-top {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 150px 1fr auto auto;
+    align-items: center;
+    gap: 22px;
+    padding-right: 24px;
+    border-bottom: 1px solid var(--ss-line-faint);
+  }
+
+  .opd-logo {
+    margin-left: 22px;
+    color: var(--op-blue);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .opd-search {
+    display: flex;
+    align-items: center;
+    width: 210px;
+    height: 32px;
+    margin-left: 160px;
+    padding: 0 10px;
+    border: 1px solid var(--ss-line);
+    border-radius: var(--ss-radius-md);
+  }
+
+  .opd-icons { display: flex; gap: 16px; }
+
+  .opd-me {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-left: 22px;
+    border-left: 1px solid var(--ss-line-faint);
+    height: 58px;
+  }
+
+  .opd-me-lines { display: grid; gap: 7px; }
+
+  .opd-side {
+    display: grid;
+    align-content: start;
+    gap: 4px;
+    padding-top: 30px;
+    background: var(--ss-well);
+  }
+
+  .opd-nav {
+    padding: 9px 22px;
+    color: var(--ss-text);
+    font-size: 14px;
+  }
+
+  .opd-nav[data-on] {
+    background: #ececec;
+    color: var(--ss-text-strong);
+    font-weight: 600;
+  }
+
+  .opd-main {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 22px;
+    padding: 40px 28px 0;
+  }
+
+  .opd-hello {
+    font-size: 28px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  .opd-team { display: flex; gap: 26px; }
+
+  .opd-person {
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+  }
+
+  .opd-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 6px;
+  }
+
+  .opd-card {
+    display: grid;
+    justify-items: center;
+    align-content: start;
+    gap: 12px;
+    height: 214px;
+    padding: 18px 16px;
+    border: 1.5px solid #ececec;
+    border-radius: var(--ss-radius-lg);
+  }
+
+  .opd-card-title {
+    color: var(--op-blue);
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .opd-date {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    background: var(--ss-well);
+    line-height: 1.1;
+  }
+
+  .opd-month { color: var(--ss-text); font-size: 13px; }
+  .opd-dom { color: var(--ss-text-strong); font-size: 22px; font-weight: 500; }
+
+  .opd-lines { display: grid; gap: 5px; }
+  .opd-sched { color: var(--ss-text); font-size: 13px; }
+
+  .opd-actions { display: flex; gap: 8px; margin-top: auto; }
+
+  .opd-outline {
+    padding: 5px 9px;
+    border: 1.5px solid #c9ccd1;
+    border-radius: 4px;
+    color: var(--ss-text);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .opd-outline[data-strong] { border-color: var(--op-blue); color: var(--op-blue); }
+
+  .opd-cal {
+    display: grid;
+    grid-template-columns: repeat(7, 18px);
+    gap: 2px 1px;
+    padding: 8px 12px;
+    border: 1px solid var(--ss-line);
+    border-radius: 6px;
+    font-size: 9px;
+  }
+
+  .opd-dow { text-align: center; font-weight: 600; }
+
+  .opd-day {
+    display: grid;
+    place-items: center;
+    height: 18px;
+    color: var(--ss-text-strong);
+  }
+
+  .opd-day > span {
+    display: grid;
+    place-items: center;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+  }
+
+  .opd-day[data-kind='band'] { background: var(--ss-accent-soft); }
+  .opd-day[data-kind='cap'] > span { background: var(--ss-accent); color: #fff; }
+  .opd-day[data-kind='ok'] > span { background: var(--ss-success); color: #fff; }
+  .opd-day[data-kind='warn'] > span { background: var(--ss-warning); color: #fff; }
+  .opd-day[data-kind='soft'] > span { background: #ececec; }
+
+  .opd-rest { position: absolute; right: 60px; bottom: 40px; width: 1px; height: 1px; }
+
+  /* Satellites: one level above the app, each rising in from below */
+  .opd-sat {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 22px 24px;
+    border-radius: 14px;
+    background: var(--ss-surface);
+    box-shadow: var(--op-card-shadow);
+    opacity: 0;
+    transform: translateY(18px);
+    will-change: transform, opacity;
+    transition: opacity 0.6s ease, transform 0.9s var(--opd-ease);
+  }
+
+  .opd-sat[data-in] { opacity: 1; transform: none; }
+
+  .opd-sat-copy { display: grid; justify-items: start; gap: 4px; }
+  .opd-sat-copy .ss-roll { line-height: 1; }
+  .opd-sat-title { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; line-height: 1.2; }
+  .opd-sat-sub { color: var(--ss-text); font-size: 16px; }
+
+  .opd-sat .ss-badge {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+  }
+
+  .opd-btn { font-weight: 600; }
+
+  .opd-payroll { top: 22px; left: 232px; }
+  .opd-support { top: 170px; left: 596px; gap: 18px; }
+  .opd-timeoff { top: 516px; left: 470px; }
+  .opd-support .opd-btn { margin-top: 8px; }
+
+  /* Compact, the phone column: no sidebar, the app cropped to its greeting and
+     two cards, payroll above it and time off over its foot; live support
+     stays in the wide design only */
+  & .ss-stage[data-layout='compact'] {
+    .opd-app {
+      top: 120px;
+      left: 16px;
+      width: 520px;
+      grid-template-columns: 0 1fr;
+    }
+    .opd-top { grid-template-columns: 0 1fr; }
+    .opd-logo { margin-left: 16px; }
+    .opd-search, .opd-icons, .opd-me, .opd-side { display: none; }
+    .opd-main { padding: 28px 18px 0; gap: 16px; }
+    .opd-hello { font-size: 22px; }
+    .opd-team { gap: 18px; }
+    .opd-cards { grid-template-columns: repeat(2, 147px); }
+    .opd-card:nth-child(2) { display: none; }
+    .opd-outline:not([data-strong]) { display: none; }
+    .opd-payroll { top: 16px; left: 16px; right: 16px; padding: 16px 18px; justify-content: space-between; }
+    .opd-support { display: none; }
+    .opd-timeoff { top: 476px; left: 16px; right: 16px; padding: 16px 18px; }
+    .opd-sat-title { font-size: 18px; }
+    .opd-sat-sub { font-size: 14px; }
+  }
+}

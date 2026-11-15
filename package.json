@@ -9,11 +9,24 @@
     "lint:js": "wp-scripts lint-js \"plugin/cb-resume-blocks/src/**/*.js\" theme/cb-resume/assets/js plugin/cb-resume-blocks/assets",
     "test": "node --test plugin/cb-resume-blocks/src/payroll-calculator/calc.test.mjs",
     "serve": "wp-playground-cli server --blueprint=dev/blueprint.dev.json --mount=./theme/cb-resume:/wordpress/wp-content/themes/cb-resume --mount=./plugin/cb-resume-blocks:/wordpress/wp-content/plugins/cb-resume-blocks --port=9400",
-    "content": "python3 tools/gen.py"
+    "content": "python3 tools/gen.py",
+    "serve:onpay": "wp-playground-cli server --blueprint=dev/blueprint-onpay.dev.json --mount=./theme/onpay-concept:/wordpress/wp-content/themes/onpay-concept --mount=./plugin/cb-resume-blocks:/wordpress/wp-content/plugins/cb-resume-blocks --port=9401",
+    "build:stageshow": "vite build --config stageshow/vite.config.mjs",
+    "stageshow:sync": "sh stageshow/sync.sh",
+    "onpay:patterns": "python3 tools/onpay_patterns.py",
+    "test:onpay": "playwright test"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.10.1",
+    "@playwright/test": "1.48.2",
+    "@vitejs/plugin-react": "4.7.0",
     "@wordpress/scripts": "^37.1.0",
-    "@wp-playground/cli": "^3.1.64"
+    "@wp-playground/cli": "^3.1.64",
+    "lucide-react": "0.468.0",
+    "preact": "10.24.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "vite": "6.4.5"
   },
   "dependencies": {
     "@wordpress/block-editor": "^20.0.0",

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       CB Resume Blocks
- * Description:       Custom Gutenberg blocks for Curtis Blanton's resume: timeline, skill charts, metrics, a 2026 payroll-cost calculator (Interactivity API) and a server-side A/B experiment wrapper. Pushes GA4-ready events to the GTM dataLayer and outputs Person schema.
+ * Description:       Custom Gutenberg blocks for Curtis Blanton's resume: timeline, skill charts, metrics, a 2026 payroll-cost calculator (Interactivity API) and a server-side A/B experiment wrapper, stageshow product scenes and opt-in Consent Mode v2. Pushes GA4-ready events to the GTM dataLayer and outputs Person schema.
  * Version:           1.0.0
  * Requires at least: 6.6
  * Requires PHP:      8.1
@@ -14,6 +14,7 @@ defined( 'ABSPATH' ) || exit;
 
 require __DIR__ . '/inc/payroll.php';
 require __DIR__ . '/inc/schema.php';
+require __DIR__ . '/inc/consent.php';
 
 add_action(
 	'init',
