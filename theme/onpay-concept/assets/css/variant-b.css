@@ -11,6 +11,15 @@
 .op-b .is-style-outline-white .wp-block-button__link,
 .op-b .is-style-secondary .wp-block-button__link { padding: 18px 32px; font-size: 1.25rem; }
 
+/* ---- rhythm: sections take the room their content needs, one shared pad ---- */
+.op-b.is-style-screen { min-height: 0; padding-block: clamp(64px, 11vh, 120px); }
+/* Pinned stacks: beats close enough that the next one is always in view. */
+@media (min-width: 901px) {
+	.op-b.op-b-hero .op-step:not(.op-step--intro) { min-height: 60svh; }
+	.op-b.op-b-proof .op-step:not(.op-step--intro),
+	.op-b.op-b-how .op-step:not(.op-step--intro) { min-height: 72svh; }
+}
+
 /* ---- hero ---- */
 .op-b .op-b-assure { margin-top: 1.5rem; color: var(--wp--preset--color--sky); font-size: 0.9375rem; font-weight: 500; letter-spacing: 0.01em; text-wrap: balance; }
 
@@ -27,10 +36,11 @@
 .op-b.op-b-pricing .op-lede { margin-inline: auto; }
 .op-b.op-b-pricing .op-lede strong { color: var(--wp--preset--color--heading); }
 .op-b.op-b-pricing .op-mega { font-size: clamp(7rem, 28vw, 22rem); }
-.op-b.op-b-pricing .wp-block-buttons { justify-content: center; margin-top: 1rem; }
+.op-b.op-b-pricing .wp-block-buttons { justify-content: center; margin-top: 2rem; }
 .op-b.op-b-pricing .op-link-row { padding-top: 1.25rem; }
 
-/* ---- pull quote ---- */
+/* ---- pull quote: on the same left line as every other section ---- */
+.op-b.op-b-quote > .op-pull { max-width: none; margin-left: 0 !important; }
 .op-b.op-b-quote .op-pull::before { content: ""; display: block; width: 72px; height: 6px; margin-bottom: 2.5rem; border-radius: 3px; background: var(--wp--preset--color--mint); }
 .op-b.op-b-quote cite strong { display: block; font-size: 1.25rem; font-weight: 600; }
 .op-b.op-b-quote cite span { display: block; margin-top: 0.25rem; color: var(--wp--preset--color--sky); font-size: 1rem; }
@@ -46,7 +56,8 @@
 @media (max-width: 600px) {
 	.op-b .wp-block-buttons { flex-direction: column; align-items: stretch; width: 100%; }
 	.op-b .op-award__logo img { width: 44px; height: 44px; }
-	.op-b .op-b-award__name { font-size: 0.8125rem; }
+	.op-b .op-b-awards { column-gap: 14px; }
+	.op-b .op-b-award__name { font-size: 0.8125rem; line-height: 1.35; hyphens: auto; overflow-wrap: anywhere; }
 	.op-b .wp-block-button, .op-b .wp-block-button__link { width: 100%; }
 }
 
@@ -90,15 +101,28 @@
 			animation-range: entry 0% cover 40%;
 		}
 
+		/* Pricing copy fades in place and is done by the time it is fully on
+		   screen; sliding up would pass under the (never animated) button. */
+		.op-b.op-b-pricing > :not(.op-mega):not(.wp-block-buttons) {
+			animation-name: op-b-fade;
+			animation-range: entry 0% entry 100%;
+		}
+
 		/* Buttons are never held back by a reveal. */
 		.op-b > .wp-block-buttons { animation: none; }
 	}
 }
 
+/* Sharp for most of the pass; steps back (dimmer, no blur) only near the top. */
 @keyframes op-b-focus {
 	0% { opacity: 0; transform: scale(0.8); filter: blur(8px); letter-spacing: 0; }
-	40%, 60% { opacity: 1; transform: none; filter: none; letter-spacing: -0.05em; }
-	100% { opacity: 0.25; transform: scale(0.94); filter: blur(4px); }
+	30%, 78% { opacity: 1; transform: none; filter: none; letter-spacing: -0.05em; }
+	100% { opacity: 0.35; transform: scale(0.96); }
+}
+
+@keyframes op-b-fade {
+	from { opacity: 0; }
+	to { opacity: 1; }
 }
 
 @keyframes op-b-fill {
