@@ -177,6 +177,31 @@ body { counter-reset: slide; }
 }
 .cb-contact-lines a { text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
 #contact .wp-block-buttons { margin-top: 2rem; }
+/* Button icons: brand-coloured logos as backgrounds, monochrome ones as masks that follow the text colour. */
+.cb-icon > .wp-block-button__link::before {
+	content: "";
+	display: inline-block;
+	inline-size: 1.25em;
+	block-size: 1.25em;
+	margin-inline-end: 0.5em;
+	vertical-align: -0.2em;
+	background: var(--icon) center / contain no-repeat;
+}
+.cb-icon-chatgpt > .wp-block-button__link::before,
+.cb-icon-github > .wp-block-button__link::before,
+.cb-icon-linkedin > .wp-block-button__link::before {
+	background: currentColor;
+	mask: var(--icon) center / contain no-repeat;
+}
+.cb-icon-claude { --icon: url("assets/img/claude.svg"); }
+.cb-icon-chatgpt { --icon: url("assets/img/chatgpt.svg"); }
+.cb-icon-perplexity { --icon: url("assets/img/perplexity.svg"); }
+.cb-icon-google { --icon: url("assets/img/google.svg"); }
+.cb-icon-github { --icon: url("assets/img/github.svg"); }
+.cb-icon-linkedin { --icon: url("assets/img/linkedin.svg"); }
+#contact .cb-ask-label { margin-top: 2.5rem; }
+#contact .cb-ask { margin-top: 0.75rem; }
+#contact .cb-ask .wp-block-button__link { font-size: var(--wp--preset--font-size--small); padding-block: 0.5em; }
 
 /* ---------- Lab ---------- */
 
