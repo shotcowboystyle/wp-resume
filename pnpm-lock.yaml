@@ -45,6 +45,9 @@ importers:
       lucide-react:
         specifier: 0.468.0
         version: 0.468.0(react@18.3.1)
+      portless:
+        specifier: 0.17.0
+        version: 0.17.0
       preact:
         specifier: 10.24.3
         version: 10.24.3
@@ -5765,6 +5768,12 @@ packages:
   plur@4.0.0:
     resolution: {integrity: sha512-4UGewrYgqDFw9vV6zNV+ADmPAUAfJPKtGvb/VdpQAx25X5f3xXdGdyOEVFwkl8Hl/tl7+xbeHqSEM+D5/TirUg==}
     engines: {node: '>=10'}
+
+  portless@0.17.0:
+    resolution: {integrity: sha512-UJdy5sGmNSwi8ETvVniUTqULJht16qvBR9rvsFqsVekEyabMH2xJ5mwIEYBmSSHVCUmQvAmaYAhBcCs8PA7IBA==}
+    engines: {node: '>=24'}
+    os: [darwin, linux, win32]
+    hasBin: true
 
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
@@ -13804,6 +13813,8 @@ snapshots:
   plur@4.0.0:
     dependencies:
       irregular-plurals: 3.5.0
+
+  portless@0.17.0: {}
 
   possible-typed-array-names@1.1.0: {}
 

@@ -1,0 +1,23 @@
+# Toolchain and one-time setup for this repo. https://mise.jdx.dev
+#
+# First run:
+#   mise trust && mise run setup
+#
+# Dev servers then live at fixed HTTPS URLs through portless:
+#   pnpm serve        https://wp-resume.localhost
+#   pnpm serve:onpay  https://onpay.wp-resume.localhost
+[tools]
+node = '26.9.0'
+pnpm = '12.16.0'
+
+[tasks.setup]
+description = "Install tools and deps, trust the portless CA, run the proxy at boot"
+run = [
+  "mise install",
+  "pnpm install",
+  # The only admin prompts: trust the local CA so https://*.localhost has no
+  # certificate warnings, and install the proxy as a boot service so port 443
+  # never asks for sudo again.
+  "pnpm exec portless trust",
+  "pnpm exec portless service install",
+]

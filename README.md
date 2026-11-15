@@ -67,18 +67,18 @@ metrics and sample size.
 | `tests/onpay.spec.mjs` | Playwright + axe: WCAG 2.1 AA per variant, zoom, one `<main>`, consent and GPC, experiment events, lazy scenes, CLS under 0.1. |
 
 ```sh
-pnpm serve:onpay   # Playground CLI on http://127.0.0.1:9401
+pnpm serve:onpay   # Playground CLI at https://onpay.wp-resume.localhost
 pnpm test:onpay    # starts serve:onpay if it isn't running
 ```
 
 ## Develop
 
 ```sh
-pnpm install
+mise run setup  # once: tools, deps, trusts the portless HTTPS cert (one admin prompt)
 pnpm build      # wp-scripts: blocks + Interactivity API view module
 pnpm test       # calculator math against hand-computed cases (node:test)
 pnpm lint:js
-pnpm serve      # Playground CLI on http://127.0.0.1:9400 with theme + plugin mounted
+pnpm serve      # Playground CLI at https://wp-resume.localhost with theme + plugin mounted
 pnpm content    # regenerate theme/cb-resume/content/resume.html from tools/gen.py
 ```
 
