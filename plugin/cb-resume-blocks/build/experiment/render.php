@@ -18,6 +18,10 @@ if ( in_array( $forced, array( 'a', 'b' ), true ) ) {
 } else {
 	$variant = random_int( 1, 100 ) <= (int) $attributes['split'] ? 'b' : 'a';
 	if ( ! headers_sent() ) {
+		// The page differs per visitor now: keep it out of shared caches. A full-page
+		// cache (NitroPack, Cloudflare) needs a cookie-keyed rule or edge assignment.
+		header( 'Cache-Control: private, no-store' );
+		header( 'Vary: Cookie', false );
 		setcookie(
 			$cookie,
 			$variant,

@@ -7,6 +7,19 @@ document.addEventListener( 'click', ( e ) => {
 		return;
 	}
 
+	// Button clicks are the conversions an experiment is judged on, so they carry
+	// the variant the visitor saw (from the cb/experiment wrapper around them).
+	if ( a.classList.contains( 'wp-block-button__link' ) ) {
+		const exp = a.closest( '[data-experiment]' );
+		window.dataLayer.push( {
+			event: 'cta_click',
+			cta_text: a.textContent.trim().slice( 0, 100 ),
+			link_url: a.href,
+			experiment_id: exp ? exp.dataset.experiment : undefined,
+			experiment_variant: exp ? exp.dataset.variant : undefined,
+		} );
+	}
+
 	const href = a.getAttribute( 'href' );
 	let event;
 	if ( /\.pdf($|[?#])/i.test( href ) ) {

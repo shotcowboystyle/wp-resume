@@ -1,2 +1,9 @@
 node_modules/
 .DS_Store
+plugin/*/build/**/*.map
+.agents/
+.claude/
+.oil-ui/
+skills-lock.json
+test-results/
+playwright-report/

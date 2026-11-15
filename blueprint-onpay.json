@@ -1,0 +1,65 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/",
+	"preferredVersions": {
+		"php": "8.3",
+		"wp": "latest"
+	},
+	"features": {
+		"networking": true
+	},
+	"login": true,
+	"meta": {
+		"title": "OnPay homepage A/B test (concept)",
+		"description": "onpay.com's homepage rebuilt as a reusable block theme, with a server-side A/B test: today's page against a shorter, expert-led page with animated stageshow product scenes. Fixes the consent, accessibility and layout-shift findings from a public audit. Not affiliated with OnPay.",
+		"author": "shotcowboystyle",
+		"categories": [
+			"Theme",
+			"Blocks"
+		]
+	},
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "wordpress.org/plugins",
+				"slug": "performance-lab"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "installTheme",
+			"themeData": {
+				"resource": "git:directory",
+				"url": "https://github.com/shotcowboystyle/wp-resume",
+				"ref": "main",
+				"refType": "branch",
+				"path": "theme/onpay-concept"
+			},
+			"options": {
+				"activate": true,
+				"targetFolderName": "onpay-concept"
+			}
+		},
+		{
+			"step": "installPlugin",
+			"pluginData": {
+				"resource": "git:directory",
+				"url": "https://github.com/shotcowboystyle/wp-resume",
+				"ref": "main",
+				"refType": "branch",
+				"path": "plugin/cb-resume-blocks"
+			},
+			"options": {
+				"activate": true,
+				"targetFolderName": "cb-resume-blocks"
+			}
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require '/wordpress/wp-load.php';\n// Open the editor straight onto the blocks, not the welcome tour.\nupdate_user_meta(1, 'wp_persisted_preferences', ['core/edit-post' => ['welcomeGuide' => false], 'core/edit-site' => ['welcomeGuide' => false], 'core' => ['welcomeGuide' => false], '_modified' => gmdate('c')]);\nonpay_concept_seed();"
+		}
+	]
+}
