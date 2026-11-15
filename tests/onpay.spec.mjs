@@ -67,6 +67,19 @@ test.describe( 'variant isolation', () => {
 	} )
 } )
 
+test.describe( 'header menu', () => {
+	for ( const width of [ 390, 768 ] ) {
+		test( `offers Log in and Get started at ${ width }px`, async ( { page } ) => {
+			await page.setViewportSize( { width, height: 900 } )
+			await page.goto( '/?cb_variant=a' )
+			await page.getByRole( 'button', { name: 'Open menu' } ).click()
+			const menu = page.locator( '.wp-block-navigation__responsive-container.is-menu-open' )
+			await expect( menu.getByRole( 'link', { name: 'Log in' } ) ).toBeVisible()
+			await expect( menu.getByRole( 'link', { name: 'Get started' } ) ).toBeVisible()
+		} )
+	}
+} )
+
 test.describe( 'consent', () => {
 	test( 'defaults to denied before any tag and sets no analytics cookies', async ( { page } ) => {
 		const tagRequests = []
