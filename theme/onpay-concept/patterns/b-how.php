@@ -5,8 +5,8 @@
  * Categories: onpay-b
  */
 ?>
-<!-- wp:group {"metadata":{"name":"How it works"},"tagName":"section","className":"is-style-sticky-stack op-b-how","backgroundColor":"white"} -->
-<section class="wp-block-group is-style-sticky-stack op-b-how has-white-background-color has-background"><!-- wp:group {"className":"op-stack__panel"} -->
+<!-- wp:group {"metadata":{"name":"How it works"},"tagName":"section","className":"is-style-sticky-stack op-b op-b-how","backgroundColor":"white"} -->
+<section class="wp-block-group is-style-sticky-stack op-b op-b-how has-white-background-color has-background"><!-- wp:group {"className":"op-stack__panel"} -->
 <div class="wp-block-group op-stack__panel"><!-- wp:cb/stage {"scene":"onpay-dashboard","label":"The OnPay dashboard: payroll for Jan 21 to Feb 3 is started and submitted, the pay dates move forward, a time-off request is approved and live support is offered."} /-->
 </div>
 <!-- /wp:group -->

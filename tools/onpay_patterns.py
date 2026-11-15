@@ -417,14 +417,15 @@ def variant_b():
                 heading("Payroll backed by <span class=\"op-mark\">real people.</span>", 1, className="is-style-display", fg="white"),
                 para("Run payroll in minutes. When a question comes up, a US-based payroll expert answers by phone, chat or email.", className="op-lede"),
                 buttons(button("Get started", GET_STARTED, "xl"), button("Talk to an expert", CONTACT, "outline-white")),
+                para("Free expert setup <span aria-hidden=\"true\">·</span> $0 to switch <span aria-hidden=\"true\">·</span> US-based support", className="op-b-assure"),
                 className="op-step--intro",
             ),
             step(heading("Ask a person.", className="is-style-display", fg="white"), para("Not a bot, not a help-center maze. Real people, by phone, chat and email.", className="op-lede")),
             step(heading("Get the answer.", className="is-style-display", fg="white"), para("Specialists trained in-house on payroll and compliance, in every plan.", className="op-lede")),
-        ], className="op-b-hero", bg="brand-blue", fg="white", name="Experts hero",
+        ], className="op-b op-b-hero", bg="brand-blue", fg="white", name="Experts hero",
     ))
 
-    awards = "".join(image(src, alt, "op-award__logo") for alt, src in [("PCMag Best Value 2026", UP + "2026/07/pcmag-social-logo-white.png"), ("CNBC Best for Comprehensive Features 2026", IMG + "CNBC-logo_white.svg"), ("G2 #1 Summer Payroll Index 2026", IMG + "G2Logo-White.png")])
+    awards = "".join(group([image(src, alt, "op-award__logo"), para(alt, className="op-b-award__name")], className="op-b-award", layout=None) for alt, src in [("PCMag Best Value 2026", UP + "2026/07/pcmag-social-logo-white.png"), ("CNBC Best for Comprehensive Features 2026", IMG + "CNBC-logo_white.svg"), ("G2 #1 Summer Payroll Index 2026", IMG + "G2Logo-White.png")])
     pattern("b-proof", "Proof in big numbers (sticky)", "onpay-b", sticky(
         group([
             heading("Why owners <strong>stay</strong>", fg="white", className="op-b-proof__title"),
@@ -434,7 +435,7 @@ def variant_b():
             step(para("35+", className="op-giant"), para("years of payroll expertise behind the software.", className="op-lede")),
             step(para("100%", className="op-giant"), para("US-based support team, trained in-house.", className="op-lede")),
             step(para("$0", className="op-giant"), para("to switch. Setup and prior-wage migration are free.", className="op-lede")),
-        ], className="op-b-proof op-stack--panel-left", bg="navy", fg="white", name="Proof",
+        ], className="op-b op-b-proof op-stack--panel-left", bg="navy", fg="white", name="Proof",
     ))
 
     pattern("b-how", "How it works (sticky)", "onpay-b", sticky(
@@ -443,25 +444,26 @@ def variant_b():
             step(para("1", className="op-step__num"), heading("Tell us about your business.", className="op-b-how__h"), para("A few basic details. That’s it.", className="op-lede")),
             step(para("2", className="op-step__num"), heading("We set everything up.", className="op-b-how__h"), para("Our team of pros imports your employees’ information for you.", className="op-lede")),
             step(para("3", className="op-step__num"), heading("Run payroll in minutes.", className="op-b-how__h"), para("Taxes calculated, filed and paid. A person is a call away.", className="op-lede")),
-        ], className="op-b-how", bg="white", name="How it works",
+        ], className="op-b op-b-how", bg="white", name="How it works",
     ))
 
     pattern("b-pricing", "Pricing in one number", "onpay-b", group([
         para("Clear pricing. Zero haggling.", className="op-kicker", fg="green-ink"),
         para('<span class="op-dollar">$</span>49', className="op-mega"),
-        para("a month, plus $6 per worker. Free expert setup, no sales pitch.", className="op-lede"),
-        para('<a href="' + OP + '/payroll/software/costs-pricing/">See what’s included</a>'),
-    ], className="is-style-screen op-b-pricing", tag="section", bg="ice"))
+        para('<strong>a month</strong>, plus <strong>$6 per worker</strong>. Free expert setup, no sales pitch.', className="op-lede"),
+        buttons(button("Get started", GET_STARTED, "xl")),
+        link("See what’s included", OP + "/payroll/software/costs-pricing/"),
+    ], className="is-style-screen op-b op-b-pricing", tag="section", bg="ice"))
 
     pattern("b-testimonial", "Pull quote", "onpay-b", group([
-        quote("“One of my best business decisions.”", "Sheila, Wizard of Paws Pet Salon, OnPay client since 2017", "op-pull"),
-    ], className="is-style-screen op-b-quote", tag="section", bg="brand-blue", fg="white"))
+        quote("“One of my best business decisions.”", "<strong>Sheila</strong> <span>Wizard of Paws Pet Salon, OnPay client since 2017</span>", "op-pull"),
+    ], className="is-style-screen op-b op-b-quote", tag="section", bg="brand-blue", fg="white"))
 
     pattern("b-cta", "Talk to a person (final CTA)", "onpay-b", group([
         heading("Talk to a person <span class=\"op-mark\">today.</span>", className="is-style-display"),
         para("Start in minutes, or call first. Either way, you get a real expert.", className="op-lede"),
         buttons(button("Get started", GET_STARTED, "xl"), button("Talk to an expert", CONTACT, "secondary")),
-    ], className="is-style-screen op-b-cta", tag="section", bg="white"))
+    ], className="is-style-screen op-b op-b-cta", tag="section", bg="white"))
 
 
 # ---- the brief -------------------------------------------------------------

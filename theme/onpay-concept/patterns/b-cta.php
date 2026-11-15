@@ -5,8 +5,8 @@
  * Categories: onpay-b
  */
 ?>
-<!-- wp:group {"tagName":"section","className":"is-style-screen op-b-cta","backgroundColor":"white","layout":{"type":"constrained"}} -->
-<section class="wp-block-group is-style-screen op-b-cta has-white-background-color has-background"><!-- wp:heading {"className":"is-style-display"} -->
+<!-- wp:group {"tagName":"section","className":"is-style-screen op-b op-b-cta","backgroundColor":"white","layout":{"type":"constrained"}} -->
+<section class="wp-block-group is-style-screen op-b op-b-cta has-white-background-color has-background"><!-- wp:heading {"className":"is-style-display"} -->
 <h2 class="wp-block-heading is-style-display">Talk to a person <span class="op-mark">today.</span></h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph {"className":"op-lede"} -->
