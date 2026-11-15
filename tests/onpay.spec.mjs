@@ -49,6 +49,24 @@ for ( const v of VARIANTS ) {
 	} )
 }
 
+test.describe( 'variant isolation', () => {
+	test( 'variant B styles cannot reach variant A', async ( { page } ) => {
+		await page.goto( '/?cb_variant=a' )
+		await expect( page.locator( '.op-b' ) ).toHaveCount( 0 )
+		const selectors = await page.evaluate( () => {
+			const sheet = [ ...document.styleSheets ].find( ( s ) => s.href?.includes( 'variant-b.css' ) )
+			const out = []
+			const walk = ( rules ) => [ ...rules ].forEach( ( r ) => ( r.selectorText ? out.push( r.selectorText ) : r.cssRules && walk( r.cssRules ) ) )
+			walk( sheet.cssRules )
+			return out
+		} )
+		expect( selectors.length ).toBeGreaterThan( 0 )
+		// Every selector in a list must start at the .op-b root class itself (not .op-b-*).
+		const leaks = selectors.flatMap( ( s ) => s.split( ',' ) ).map( ( s ) => s.trim() ).filter( ( s ) => ! /^\.op-b(?![\w-])/.test( s ) )
+		expect( leaks ).toEqual( [] )
+	} )
+} )
+
 test.describe( 'consent', () => {
 	test( 'defaults to denied before any tag and sets no analytics cookies', async ( { page } ) => {
 		const tagRequests = []

@@ -1,0 +1,124 @@
+/* Variant B polish. Every selector starts at .op-b, the root class of each B
+   section pattern, so nothing here can reach variant A or the shared header and
+   footer (tests/onpay.spec.mjs checks this). Loaded after style.css. */
+
+/* ---- shared within B ---- */
+.op-b .op-lede { text-wrap: pretty; }
+.op-b .op-giant, .op-b .op-mega { font-variant-numeric: lining-nums; }
+
+/* Primary and secondary buttons share one height. */
+.op-b .wp-block-buttons { gap: 12px 16px; }
+.op-b .is-style-outline-white .wp-block-button__link,
+.op-b .is-style-secondary .wp-block-button__link { padding: 18px 32px; font-size: 1.25rem; }
+
+/* ---- hero ---- */
+.op-b .op-b-assure { margin-top: 1.5rem; color: var(--wp--preset--color--sky); font-size: 0.9375rem; font-weight: 500; letter-spacing: 0.01em; text-wrap: balance; }
+
+/* ---- proof: awards named, not just logos ---- */
+.op-b .op-b-awards { display: grid; grid-template-columns: repeat(3, minmax(0, 9.5rem)); align-items: start; gap: 28px clamp(16px, 3vw, 40px); margin-top: 2.5rem; }
+.op-b .op-b-award { display: grid; justify-items: start; gap: 12px; }
+.op-b .op-b-awards > *, .op-b .op-b-award > * { margin: 0; }
+.op-b .op-award__logo { display: block; height: auto; }
+.op-b .op-award__logo img { width: 56px; height: 56px; object-fit: contain; }
+.op-b .op-b-award__name { color: rgba(255, 255, 255, 0.88); font-size: 0.875rem; font-weight: 500; line-height: 1.4; }
+
+/* ---- pricing: one number, then the button ---- */
+.op-b.op-b-pricing { text-align: center; }
+.op-b.op-b-pricing .op-lede { margin-inline: auto; }
+.op-b.op-b-pricing .op-lede strong { color: var(--wp--preset--color--heading); }
+.op-b.op-b-pricing .op-mega { font-size: clamp(7rem, 28vw, 22rem); }
+.op-b.op-b-pricing .wp-block-buttons { justify-content: center; margin-top: 1rem; }
+.op-b.op-b-pricing .op-link-row { padding-top: 1.25rem; }
+
+/* ---- pull quote ---- */
+.op-b.op-b-quote .op-pull::before { content: ""; display: block; width: 72px; height: 6px; margin-bottom: 2.5rem; border-radius: 3px; background: var(--wp--preset--color--mint); }
+.op-b.op-b-quote cite strong { display: block; font-size: 1.25rem; font-weight: 600; }
+.op-b.op-b-quote cite span { display: block; margin-top: 0.25rem; color: var(--wp--preset--color--sky); font-size: 1rem; }
+
+/* ---- final CTA: centred, and the secondary button visible on white ---- */
+.op-b.op-b-cta { text-align: center; }
+.op-b.op-b-cta .op-lede { margin-inline: auto; font-size: 1.25rem; }
+.op-b.op-b-cta .wp-block-buttons { justify-content: center; }
+.op-b.op-b-cta .is-style-secondary .wp-block-button__link { border: 0; background: transparent; color: var(--wp--preset--color--heading); box-shadow: inset 0 0 0 2px var(--wp--preset--color--heading); }
+.op-b.op-b-cta .is-style-secondary .wp-block-button__link:hover { background: var(--wp--preset--color--ice); }
+
+/* ---- phones: full-width, equal buttons ---- */
+@media (max-width: 600px) {
+	.op-b .wp-block-buttons { flex-direction: column; align-items: stretch; width: 100%; }
+	.op-b .op-award__logo img { width: 44px; height: 44px; }
+	.op-b .op-b-award__name { font-size: 0.8125rem; }
+	.op-b .wp-block-button, .op-b .wp-block-button__link { width: 100%; }
+}
+
+/* ---- scroll motion: CSS scroll timelines where supported; otherwise static ---- */
+@supports (animation-timeline: view()) {
+	@media (prefers-reduced-motion: no-preference) {
+		/* Proof: each number comes into focus at the centre of the screen and
+		   steps back as the next arrives, scrubbed by scroll (reverses on the way up). */
+		.op-b.op-b-proof .op-step > .op-giant {
+			transform-origin: left center;
+			animation: op-b-focus linear both;
+			animation-timeline: view();
+			animation-range: cover 5% cover 95%;
+		}
+
+		/* The pinned panel's rail fills as the three numbers pass. */
+		.op-b.op-b-proof { timeline-scope: --op-b-proof; }
+		.op-b.op-b-proof .op-stack__steps { view-timeline: --op-b-proof block; }
+		.op-b.op-b-proof .op-stack__panel::before,
+		.op-b.op-b-proof .op-stack__panel::after { content: ""; position: absolute; top: 25%; right: -3vw; width: 3px; height: 50%; border-radius: 3px; }
+		.op-b.op-b-proof .op-stack__panel::before { background: rgba(255, 255, 255, 0.14); }
+		.op-b.op-b-proof .op-stack__panel::after {
+			background: var(--wp--preset--color--mint);
+			transform-origin: top;
+			animation: op-b-fill linear both;
+			animation-timeline: --op-b-proof;
+			animation-range: contain 0% contain 100%;
+		}
+
+		/* How it works: each step number lights up as its step reaches the middle. */
+		.op-b.op-b-how .op-step__num {
+			animation: op-b-light linear both;
+			animation-timeline: view();
+			animation-range: cover 30% cover 45%;
+		}
+
+		/* Pricing: the number settles from oversized into place. */
+		.op-b.op-b-pricing > .op-mega {
+			animation: op-b-settle linear both;
+			animation-timeline: view();
+			animation-range: entry 0% cover 40%;
+		}
+
+		/* Buttons are never held back by a reveal. */
+		.op-b > .wp-block-buttons { animation: none; }
+	}
+}
+
+@keyframes op-b-focus {
+	0% { opacity: 0; transform: scale(0.8); filter: blur(8px); letter-spacing: 0; }
+	40%, 60% { opacity: 1; transform: none; filter: none; letter-spacing: -0.05em; }
+	100% { opacity: 0.25; transform: scale(0.94); filter: blur(4px); }
+}
+
+@keyframes op-b-fill {
+	from { transform: scaleY(0); }
+	to { transform: scaleY(1); }
+}
+
+@keyframes op-b-light {
+	from { background: var(--wp--preset--color--ice); color: var(--wp--preset--color--brand-blue); transform: scale(0.85); }
+	to { background: var(--wp--preset--color--brand-blue); color: #fff; transform: none; }
+}
+
+@keyframes op-b-settle {
+	from { opacity: 0; transform: scale(1.18) translateY(4%); }
+	to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 900px) {
+	/* Unpinned on phones, so a step only needs the room its words take. */
+	.op-b .op-step:not(.op-step--intro) { min-height: 0; padding-block: 48px; }
+	.op-b.op-b-proof .op-stack__panel::before,
+	.op-b.op-b-proof .op-stack__panel::after { display: none; }
+}

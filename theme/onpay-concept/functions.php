@@ -11,7 +11,7 @@ add_action(
 	'after_setup_theme',
 	function () {
 		add_theme_support( 'editor-styles' );
-		add_editor_style( 'style.css' );
+		add_editor_style( array( 'style.css', 'assets/css/variant-b.css' ) );
 		// Consent Mode v2 defaults, GPC and the banner (cb-resume-blocks/inc/consent.php).
 		add_theme_support( 'cb-consent' );
 	}
@@ -22,6 +22,8 @@ add_action(
 	function () {
 		$ver = wp_get_theme()->get( 'Version' );
 		wp_enqueue_style( 'onpay-concept', get_stylesheet_uri(), array(), $ver );
+		// Variant B only: every rule is scoped to .op-b, so variant A never sees it.
+		wp_enqueue_style( 'onpay-concept-b', get_theme_file_uri( 'assets/css/variant-b.css' ), array( 'onpay-concept' ), $ver );
 		wp_enqueue_script( 'onpay-tabs', get_theme_file_uri( 'assets/js/tabs.js' ), array(), $ver, array( 'strategy' => 'defer', 'in_footer' => true ) );
 	}
 );

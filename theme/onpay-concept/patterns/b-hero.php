@@ -5,8 +5,8 @@
  * Categories: onpay-b
  */
 ?>
-<!-- wp:group {"metadata":{"name":"Experts hero"},"tagName":"section","className":"is-style-sticky-stack op-b-hero","backgroundColor":"brand-blue","textColor":"white"} -->
-<section class="wp-block-group is-style-sticky-stack op-b-hero has-white-color has-brand-blue-background-color has-text-color has-background"><!-- wp:group {"className":"op-stack__panel"} -->
+<!-- wp:group {"metadata":{"name":"Experts hero"},"tagName":"section","className":"is-style-sticky-stack op-b op-b-hero","backgroundColor":"brand-blue","textColor":"white"} -->
+<section class="wp-block-group is-style-sticky-stack op-b op-b-hero has-white-color has-brand-blue-background-color has-text-color has-background"><!-- wp:group {"className":"op-stack__panel"} -->
 <div class="wp-block-group op-stack__panel"><!-- wp:cb/stage {"scene":"onpay-expert","label":"A US-based OnPay payroll specialist answers a new employer\u2019s question about Ohio taxes in chat, then both registrations are checked off.","priority":true} /-->
 </div>
 <!-- /wp:group -->
@@ -30,6 +30,9 @@
 <!-- /wp:button -->
 </div>
 <!-- /wp:buttons -->
+<!-- wp:paragraph {"className":"op-b-assure"} -->
+<p class="op-b-assure">Free expert setup <span aria-hidden="true">·</span> $0 to switch <span aria-hidden="true">·</span> US-based support</p>
+<!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
 <!-- wp:group {"className":"op-step"} -->
