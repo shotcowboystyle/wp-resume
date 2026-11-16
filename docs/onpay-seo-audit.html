@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>onpay.com SEO Audit</title>
+<style>
+:root{
+  --blue:#014296; --blue-ink:#173f8f; --blue-soft:#e7f1ff;
+  --bg:#f6f7f8; --surface:#fff; --line:#e3e6ea;
+  --text:#50545c; --strong:#212731; --faint:#8a8f98;
+  --high:#c0392b; --high-soft:#fdecea;
+  --med:#a85a12; --med-soft:#ffecd9;
+  --low:#173f8f; --low-soft:#e7f1ff;
+  --pass:#0b7a59; --pass-soft:#d6f6eb;
+  --nd:#5c6370; --nd-soft:#eceef1;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --blue:#6ea8ff; --blue-ink:#9cc2ff; --blue-soft:#14233d;
+  --bg:#0f1216; --surface:#171b21; --line:#2a3039;
+  --text:#b4bac4; --strong:#eef1f5; --faint:#7d8592;
+  --high:#ff8a7d; --high-soft:#3a1a17; --med:#ffb46b; --med-soft:#3a2614;
+  --low:#9cc2ff; --low-soft:#14233d; --pass:#5fe0b5; --pass-soft:#10302a;
+  --nd:#aab1bd; --nd-soft:#222831;
+}}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--blue)}
+code{font:0.86em ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--nd-soft);padding:.1em .35em;border-radius:4px;word-break:break-word}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header.hero{background:linear-gradient(135deg,#012a63,#014296 55%,#1f5fc4);color:#fff;padding:56px 0 88px}
+.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin:0 0 12px}
+h1{font-size:clamp(30px,5vw,46px);line-height:1.1;margin:0 0 14px;color:#fff;letter-spacing:-.02em}
+.lede{max-width:640px;font-size:18px;opacity:.92;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:24px;font-size:14px;opacity:.85}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:-56px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 8px 24px rgba(1,32,80,.08)}
+.stat b{display:block;font-size:30px;line-height:1.1;color:var(--strong);font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--faint)}
+section{margin:56px 0}
+h2{font-size:24px;color:var(--strong);margin:0 0 6px;letter-spacing:-.01em}
+.sub{margin:0 0 20px;color:var(--faint)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:0 0 14px}
+.card h3{margin:0 0 10px;font-size:18px;color:var(--strong);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.num{color:var(--faint);font-variant-numeric:tabular-nums}
+.tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.t-high{color:var(--high);background:var(--high-soft)}
+.t-med{color:var(--med);background:var(--med-soft)}
+.t-low{color:var(--low);background:var(--low-soft)}
+.t-pass{color:var(--pass);background:var(--pass-soft)}
+.t-nd{color:var(--nd);background:var(--nd-soft)}
+.card.high{border-left:4px solid var(--high)}
+.card.med{border-left:4px solid var(--med)}
+.card.low{border-left:4px solid var(--low)}
+dl{display:grid;grid-template-columns:110px 1fr;gap:6px 16px;margin:0}
+dt{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);padding-top:3px}
+dd{margin:0}
+ul.urls{margin:0;padding-left:18px}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;font-size:15px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+.tablewrap{overflow-x:auto;border-radius:14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.callout{background:var(--blue-soft);border-radius:14px;padding:20px 24px;color:var(--strong)}
+.callout p{margin:.4em 0}
+footer{border-top:1px solid var(--line);padding:28px 0 48px;font-size:14px;color:var(--faint)}
+@media (max-width:720px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid2{grid-template-columns:1fr}
+  dl{grid-template-columns:1fr}
+  dt{padding-top:8px}
+  .card{padding:18px}
+}
+@media print{
+  body{background:#fff}
+  header.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:32px 0 72px}
+  .card,table{break-inside:avoid}
+  .stat{box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Search visibility audit</p>
+    <h1>onpay.com: SEO, AEO and GEO</h1>
+    <p class="lede">A full-sitemap technical audit of the public site, covering search engines (SEO), AI answers inside search (AEO) and standalone AI assistants (GEO).</p>
+    <div class="meta">
+      <span>Audited 16 November 2026</span>
+      <span>Host: https://onpay.com</span>
+      <span>Stack: WordPress, Yoast, WP Engine, NitroPack, Cloudflare</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="stats" role="list">
+    <div class="stat" role="listitem"><b>1,147</b><span>unique sitemap URLs fetched</span></div>
+    <div class="stat" role="listitem"><b>1</b><span>high-risk finding</span></div>
+    <div class="stat" role="listitem"><b>2</b><span>medium findings</span></div>
+    <div class="stat" role="listitem"><b>7</b><span>low-priority items</span></div>
+  </div>
+
+  <section>
+    <h2>Summary</h2>
+    <div class="callout">
+      <p>The technical base is strong. Every crawler tested can reach the site, content is server-rendered, every live page self-canonicalizes, titles are unique and sitemap dates reflect real content edits.</p>
+      <p>One issue carries real risk: product rating markup that is not visible on the page and appears to aggregate third-party reviews. Two sitemap defects and a split organization entity follow. Beyond these, most remaining AI visibility depends on independent reviews and coverage, not on more pages on onpay.com.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Fix first</h2>
+    <p class="sub">Ordered by risk, scope and cost to correct.</p>
+
+    <article class="card high">
+      <h3><span class="num">01</span> Product rating markup not visible on the page <span class="tag t-high">High</span></h3>
+      <dl>
+        <dt>Where</dt>
+        <dd><code>/payroll/software/</code> and 8 industry pages: restaurants, dentists, doctors, farm, gyms, mid-size businesses, nonprofits, startups.</dd>
+        <dt>Observed</dt>
+        <dd>Each page carries a <code>Product</code> named "Payroll for small businesses" with <code>AggregateRating</code> 4.8 from 762 ratings and 97 reviews, identical on every page. Neither figure appears in the visible text. The page shows G2 and Capterra badges and a "See all ratings and reviews" link instead.</dd>
+        <dt>Impact</dt>
+        <dd>Google's review snippet guidelines require ratings to be visible on the page and prohibit aggregating ratings from other sites. This pattern risks a structured-data manual action and loss of rich results.</dd>
+        <dt>Fix</dt>
+        <dd>Remove <code>aggregateRating</code>, or show onsite-collected ratings that match the markup. If the Product node stays, name it as OnPay with a <code>brand</code>; otherwise remove it.</dd>
+      </dl>
+    </article>
+
+    <article class="card med">
+      <h3><span class="num">02</span> Sitemaps advertise broken and empty pages <span class="tag t-med">Medium</span></h3>
+      <dl>
+        <dt>Where</dt>
+        <dd>
+          <ul class="urls">
+            <li><code>/business-guides/compliance/compliance/</code> in guide-topic-sitemap: <strong>404</strong></li>
+            <li><code>/offerings/learn/learn/</code> in offering-topic-sitemap: <strong>404</strong></li>
+            <li><code>/schedule/</code> in page-sitemap (lastmod 2021): <strong>200 with an empty body</strong>, no title, H1, canonical or content</li>
+          </ul>
+        </dd>
+        <dt>Impact</dt>
+        <dd>Wastes crawl budget and lowers trust in the sitemap. The doubled slugs suggest a taxonomy sitemap generating term URLs incorrectly. An empty 200 page can be indexed as a soft 404.</dd>
+        <dt>Fix</dt>
+        <dd>Disable the guide-topic and offering-topic sitemaps in Yoast or correct the term URLs. Remove <code>/schedule/</code> from the sitemap and either noindex it or return 404 or a redirect.</dd>
+      </dl>
+    </article>
+
+    <article class="card med">
+      <h3><span class="num">03</span> Organization entity split across two nodes <span class="tag t-med">Medium</span></h3>
+      <dl>
+        <dt>Where</dt>
+        <dd>Homepage JSON-LD.</dd>
+        <dt>Observed</dt>
+        <dd>Yoast outputs <code>#organization</code> with 3 <code>sameAs</code> profiles. A second <code>Organization</code> block has no <code>@id</code> and holds 6 profiles plus legal name, founder, contact point and offer.</dd>
+        <dt>Impact</dt>
+        <dd>Engines may treat these as two entities, and the YouTube, Instagram and Crunchbase links are attached only to the unidentified one. Consistent entity identity matters for knowledge panels and AI answers.</dd>
+        <dt>Fix</dt>
+        <dd>Add <code>"@id": "https://onpay.com/#organization"</code> to the second block, or merge its properties into the Yoast graph.</dd>
+      </dl>
+    </article>
+  </section>
+
+  <section>
+    <h2>Lower priority</h2>
+    <p class="sub">Worth scheduling, none blocks discovery.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>#</th><th>Item</th><th>Recommendation</th></tr></thead>
+        <tbody>
+          <tr><td>04</td><td><code>/insights/compare-payroll-solutions/</code> and <code>/payroll/best-payroll-services/</code> share a near-identical title, the same description and similar length (about 2,050 words).</td><td>Likely competing for one query. Differentiating or consolidating them is a positioning decision for the content owner.</td></tr>
+          <tr><td>05</td><td>48 pages have no meta description, mostly <code>/about-us/author/*</code>.</td><td>Add short author bios as descriptions.</td></tr>
+          <tr><td>06</td><td>One description reused across 29 app directory pages.</td><td>Template the description with each app's name.</td></tr>
+          <tr><td>07</td><td><code>/about-us/editorial-guidelines/</code> has 4 H1 elements.</td><td>Keep one H1; demote the rest to H2.</td></tr>
+          <tr><td>08</td><td>Article <code>author.@id</code> omits the trailing slash and 301s to the canonical author URL.</td><td>Use the canonical URL with trailing slash.</td></tr>
+          <tr><td>09</td><td>Social image is the square logo while the card type is <code>summary_large_image</code>.</td><td>Optional: supply a 1200 x 630 share image.</td></tr>
+          <tr><td>10</td><td>About 6 parallel requests triggered HTTP 429 on 47 URLs; all returned 200 when refetched slowly.</td><td>Not a defect, since search crawlers adapt their rate. Check Search Console Crawl Stats for 429 responses.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Checks passed</h2>
+    <p class="sub">Verified from the live public host.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Check</th><th>Result</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Host consolidation</td><td>http and www variants 301 to <code>https://onpay.com/</code></td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>robots.txt</td><td>Allows all crawlers, references the sitemap index</td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>Search and AI crawler access</td><td>Full homepage served (200) to Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User, GPTBot, Claude-SearchBot, Claude-User, ClaudeBot, PerplexityBot, Perplexity-User and CCBot user agents</td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>Missing pages</td><td>Unknown paths return a genuine 404</td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>Index directives</td><td>No noindex in HTML or headers; every live page self-canonicalizes</td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>Titles and headings</td><td>No duplicate titles; one H1 on all but two pages</td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>Server rendering</td><td>Main content present in initial HTML (homepage about 1,580 words), readable by AI crawlers that do not run JavaScript</td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>Sitemap lastmod</td><td>Matches <code>article:modified_time</code> on all 1,018 dated pages</td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>Price consistency</td><td>Schema ($49 base + $6 per employee) matches the visible "$55 per month"</td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>Article markup</td><td>Named authors with profile pages, published and modified dates</td><td><span class="tag t-pass">Pass</span></td></tr>
+          <tr><td>hreflang</td><td>Absent, correct for a US-only site</td><td><span class="tag t-pass">N/A</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>AI search: AEO and GEO</h2>
+    <p class="sub">What the site controls, and where the remaining leverage sits.</p>
+    <div class="grid2">
+      <div class="card">
+        <h3>Owned layer <span class="tag t-pass">Healthy</span></h3>
+        <p>Crawlers have access, content is server-rendered, and authorship and dates are explicit. The one open owned fix is item 03, a single organization entity with one complete set of profiles.</p>
+        <p><code>/llms.txt</code> returns 404. It is optional and not an evidenced citation lever, so it is not listed as a defect.</p>
+      </div>
+      <div class="card">
+        <h3>Earned layer <span class="tag t-low">Main lever</span></h3>
+        <p>Most of what AI answers say about a payroll brand comes from independent sources: G2, Capterra, editorial reviews, comparison roundups and forums. Review velocity and accurate third-party coverage will move AI visibility more than additional pages on onpay.com.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Not measured</h2>
+    <p class="sub">Absent data is not a pass.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Metric</th><th>Reason</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Core Web Vitals (field)</td><td>PageSpeed Insights API quota exhausted at audit time</td><td><span class="tag t-nd">No data</span></td></tr>
+          <tr><td>Index coverage, crawl stats, AI Overview impressions</td><td>No Search Console or Bing Webmaster Tools access</td><td><span class="tag t-nd">No data</span></td></tr>
+          <tr><td>AI retrieval and citations</td><td>Requires repeated prompts per engine (ChatGPT, Perplexity, Gemini, Claude) in clean sessions, reported per engine</td><td><span class="tag t-nd">No data</span></td></tr>
+          <tr><td>Orphan pages</td><td>Navigation links were not crawled for URLs outside the sitemap</td><td><span class="tag t-nd">No data</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Method</h2>
+    <p>All 16 child sitemaps under <code>/sitemap_index.xml</code> were parsed (1,194 entries, 1,147 unique URLs). Each URL was fetched without following redirects and its status, canonical, robots directives, title, description, H1 count and JSON-LD were recorded. Rate-limited responses were refetched sequentially. Crawler access was tested by user-agent string, which confirms the response path but not verified crawler IPs or index inclusion.</p>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">onpay.com search visibility audit, 16 November 2026. Findings reflect the public site at the time of testing.</div>
+</footer>
+
+</body>
+</html>
