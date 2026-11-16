@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sitemap-wide SEO regression checks that squirrelscan's sampled crawl misses.
+"""Sitemap-wide SEO regression checks over every URL in the sitemap.
 
 Fetches every URL in the sitemap index and flags:
   error: non-200 status, empty page (no <title>), noindex on a sitemap URL,
