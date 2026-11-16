@@ -90,9 +90,9 @@ S.append(slide('results', 'slide-cream',
     h('Results, with receipts'),
     p('Every number below names its source and date. Nothing is self-rated.'),
     cols([
-        metric('2×', 'Monthly bar sales at Isla Suds a few months after the Hydrogen storefront launched', 'Owner report', 'Nov 2026'),
-        metric('2nd', 'Wholesale retailer who found Isla Suds through the new site', 'Owner report', 'Nov 2026'),
-        metric('12 of 15', 'City flood closures from the Oct 4, 2026 storm that Holy City Live’s rain model reproduces', 'City of Charleston closures', 'Oct 2026'),
+        metric('732', 'Plugins (80), agents (164), skills (299) and commands (189) in my AI toolkit, built for many industries and roles', 'GitHub: ag-skills', 'Nov 2026'),
+        metric('4', 'Company OpenClaw instances I run for marketing automation: CRO, copy, SEO, paid ads, growth, GTM and live reporting', 'GitHub: openclaw-agency-plugin', 'Nov 2026'),
+        metric('8', 'Opinionated, reproducible Docker app containers I publish for the community', 'GitHub: containers', 'Nov 2026'),
         metric('90+ / 95+', 'Lighthouse budgets for Performance / Accessibility held on my portfolio', 'Lighthouse CI', 'Nov 2026'),
     ]),
 ))

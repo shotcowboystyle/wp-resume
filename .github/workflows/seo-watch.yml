@@ -1,0 +1,113 @@
+name: SEO watch
+
+# Weekly regression check for the public site covered by docs/onpay-seo-audit.html.
+#  - tools/seo_watch.py: every sitemap URL, gates the run (404s, empty pages,
+#    noindex, hidden AggregateRating, split Organization entity, duplicate titles)
+#  - squirrelscan: broad free rule set (~290 rules) for trend and context, not gating
+# Failures open (or update) one issue labelled seo-watch; a clean run closes it.
+
+on:
+  schedule:
+    - cron: "17 13 * * 1" # Mondays 13:17 UTC
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Site to audit
+        default: https://onpay.com
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: seo-watch
+  cancel-in-progress: false
+
+env:
+  SITE_URL: ${{ inputs.url || 'https://onpay.com' }}
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sitemap checks
+        id: watch
+        continue-on-error: true
+        run: python3 -I tools/seo_watch.py "$SITE_URL" seo-watch.md
+
+      - name: Install squirrelscan
+        run: |
+          # Vendor installer, latest release. No account or API key needed for --offline audits.
+          curl -fsSL --connect-timeout 10 --max-time 120 https://install.squirrelscan.com | bash
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: squirrelscan audit
+        continue-on-error: true
+        run: |
+          squirrel audit "$SITE_URL" --offline --no-publish -y \
+            --max-pages 1200 --per-host 2 --max-duration 1500 \
+            -f json -o squirrel.json
+          squirrel report -i squirrel.json --severity error -f markdown -o squirrel-errors.md
+
+      - name: Write summary
+        if: always()
+        run: |
+          {
+            cat seo-watch.md 2>/dev/null || echo "Sitemap checks did not produce a report."
+            echo
+            if [ -f squirrel.json ]; then
+              python3 -I - <<'EOF'
+          import json
+          j = json.load(open("squirrel.json"))
+          s, m = j["score"], j["meta"]
+          print(f"## squirrelscan: {s['overall']}/100 ({s['grade']}), {m['totalPages']} pages, status {j['status']}")
+          print()
+          print("| Group | Score | Failed | Warnings |")
+          print("|---|---|---|---|")
+          for g in s["groups"]:
+              print(f"| {g['name']} | {g['score']} | {g['failed']} | {g['warnings']} |")
+          print()
+          print("Full report: `squirrel-errors.md` and `squirrel.json` in the run artifacts.")
+          EOF
+            else
+              echo "squirrelscan did not produce a report."
+            fi
+          } > summary.md
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: seo-watch-${{ github.run_id }}
+          path: |
+            seo-watch.md
+            squirrel.json
+            squirrel-errors.md
+          if-no-files-found: ignore
+          retention-days: 30
+
+      - name: Open, update or close tracking issue
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FAILED: ${{ steps.watch.outcome == 'failure' }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          # Fails only when the label already exists, which is fine.
+          gh label create seo-watch --color 014296 --description "Scheduled SEO regression check" 2>/dev/null || true
+          issue=$(gh issue list --label seo-watch --state open --json number --jq '.[0].number')
+          { echo "Run: $RUN_URL"; echo; head -c 60000 summary.md; } > body.md
+          if [ "$FAILED" = "true" ]; then
+            if [ -n "$issue" ]; then
+              gh issue comment "$issue" --body-file body.md
+            else
+              gh issue create --label seo-watch --title "SEO watch: errors on $SITE_URL" --body-file body.md
+            fi
+            exit 1
+          elif [ -n "$issue" ]; then
+            gh issue close "$issue" --comment "Clean run: $RUN_URL"
+          fi
