@@ -13,12 +13,16 @@
 
 /* ---- rhythm: sections take the room their content needs, one shared pad ---- */
 .op-b.is-style-screen { min-height: 0; padding-block: clamp(64px, 11vh, 120px); }
-/* Pinned stacks: beats close enough that the next one is always in view. */
+/* Pinned stacks: each beat gets its own screen and then some. Its copy holds
+   still beside the pinned panel (sticky) for most of that run, then scrolls on. */
 @media (min-width: 901px) {
-	.op-b.op-b-hero .op-step:not(.op-step--intro) { min-height: 60svh; }
+	.op-b .op-step:not(.op-step--intro) { align-content: start; }
+	.op-b.op-b-hero .op-step:not(.op-step--intro) { min-height: 120svh; }
 	.op-b.op-b-proof .op-step:not(.op-step--intro),
-	.op-b.op-b-how .op-step:not(.op-step--intro) { min-height: 72svh; }
+	.op-b.op-b-how .op-step:not(.op-step--intro) { min-height: 130svh; }
+	.op-b .op-step__body { position: sticky; top: max(calc(var(--op-header-h) + 32px), 24svh); }
 }
+.op-b .op-step__body > :last-child { margin-bottom: 0; }
 
 /* ---- hero ---- */
 .op-b .op-b-assure { margin-top: 1.5rem; color: var(--wp--preset--color--sky); font-size: 0.9375rem; font-weight: 500; letter-spacing: 0.01em; text-wrap: balance; }
@@ -66,7 +70,7 @@
 	@media (prefers-reduced-motion: no-preference) {
 		/* Proof: each number comes into focus at the centre of the screen and
 		   steps back as the next arrives, scrubbed by scroll (reverses on the way up). */
-		.op-b.op-b-proof .op-step > .op-giant {
+		.op-b.op-b-proof .op-step .op-giant {
 			transform-origin: left center;
 			animation: op-b-focus linear both;
 			animation-timeline: view();
@@ -142,7 +146,7 @@
 
 @media (max-width: 900px) {
 	/* Unpinned on phones, so a step only needs the room its words take. */
-	.op-b .op-step:not(.op-step--intro) { min-height: 0; padding-block: 48px; }
+	.op-b .op-step:not(.op-step--intro) { min-height: 0; padding-block: 24px; }
 	.op-b.op-b-proof .op-stack__panel::before,
 	.op-b.op-b-proof .op-stack__panel::after { display: none; }
 }
