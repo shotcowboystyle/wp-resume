@@ -50,9 +50,10 @@ def block(name, a=None, inner=None):
     return f'<!-- wp:{name}{attrs(a or {})} -->\n{inner}\n<!-- /wp:{name} -->'
 def timeline(items, earlier_from=None):
     # Items from index earlier_from on get .is-earlier; the theme lays them out as a compact second column.
-    def item(i, s, e, t, o, b):
+    def item(i, s, e, t, o, b, url=None):
         # <wbr> after dots lets long domain titles wrap there on narrow screens.
         a = {'start': s, 'end': e, 'title': t.replace('.', '.<wbr>'), 'org': o}
+        if url: a['url'] = url
         if earlier_from is not None and i >= earlier_from: a['className'] = 'is-earlier'
         return block('cb/timeline-item', a, ul(b))
     return block('cb/timeline', {'align': 'wide'}, '\n\n'.join(item(i, *x) for i, x in enumerate(items)))
@@ -74,6 +75,9 @@ ASK_AI = [
     ('Perplexity', f'https://www.perplexity.ai/search?q={ASK}'),
     ('Google AI', 'https://www.google.com/search?udm=50&amp;q=' + quote('Who is Curtis Blanton, Charleston SC developer?', safe='')),
 ]
+
+# UTM tags so each linked site's analytics (GA4, Umami) credits visits to this resume.
+def utm(url, content): return f'{url}?utm_source=wp-resume&utm_medium=referral&utm_campaign=resume&utm_content={content}'
 
 S = []
 S.append(slide('intro', 'slide-gold',
@@ -147,11 +151,11 @@ def lighthouse(perf, a11y, bp, seo):
 S.append(slide('work', 'slide-terracotta',
     h('Selected work'),
     timeline([
-        ('2026', '', 'islasuds.com', 'Shopify Hydrogen · React · GSAP · GA4', ['Storefront and wholesale portal built in about a week. Monthly bar sales roughly doubled; a second wholesale retailer found the brand through the site.', lighthouse(99, 97, 100, 100)]),
-        ('2026', '', 'holycity.live', 'HTML · CSS · vanilla JavaScript · GA4', ['Four live Charleston dashboards on NOAA, USGS and FEMA data. No build step, no API keys. The rain model reproduces 12 of 15 city flood closures.', lighthouse(92, 100, 100, 100)]),
-        ('2026', '', 'kalmiawoods.com', 'Astro · React · Next.js · Postgres · GA4', ['Scroll-driven site for the family mountain retreat, plus a calendar app where family and friends reserve the cabin.', lighthouse(96, 100, 100, 100)]),
-        ('2026', '', 'barrierislandbonsai.com', 'Nuxt · Vue · Supabase · GA4', ['Specimen-by-specimen gallery and store, an admin app for the trees, and a WebGL Bonsai Studio.', lighthouse(91, 100, 100, 100)]),
-        ('2025', '', 'shotcowboystyle.github.io', 'Astro · TypeScript · GSAP · Three.js · Umami', ['Portfolio held to Lighthouse budgets and WCAG 2.1 AA, with Playwright and axe-core in CI.', lighthouse(100, 100, 100, 100)]),
+        ('2026', '', 'islasuds.com', 'Shopify Hydrogen · React · GSAP · GA4', ['Storefront and wholesale portal built in about a week. Monthly bar sales roughly doubled; a second wholesale retailer found the brand through the site.', lighthouse(99, 97, 100, 100)], utm('https://islasuds.com/', 'selected-work')),
+        ('2026', '', 'holycity.live', 'HTML · CSS · vanilla JavaScript · GA4', ['Four live Charleston dashboards on NOAA, USGS and FEMA data. No build step, no API keys. The rain model reproduces 12 of 15 city flood closures.', lighthouse(92, 100, 100, 100)], utm('https://holycity.live/', 'selected-work')),
+        ('2026', '', 'kalmiawoods.com', 'Astro · React · Next.js · Postgres · GA4', ['Scroll-driven site for the family mountain retreat, plus a calendar app where family and friends reserve the cabin.', lighthouse(96, 100, 100, 100)], utm('https://kalmiawoods.com/', 'selected-work')),
+        ('2026', '', 'barrierislandbonsai.com', 'Nuxt · Vue · Supabase · GA4', ['Specimen-by-specimen gallery and store, an admin app for the trees, and a WebGL Bonsai Studio.', lighthouse(91, 100, 100, 100)], utm('https://barrierislandbonsai.com/', 'selected-work')),
+        ('2025', '', 'shotcowboystyle.github.io', 'Astro · TypeScript · GSAP · Three.js · Umami', ['Portfolio held to Lighthouse budgets and WCAG 2.1 AA, with Playwright and axe-core in CI.', lighthouse(100, 100, 100, 100)], utm('https://shotcowboystyle.github.io/', 'selected-work')),
     ]),
     p('Lighthouse scores: PageSpeed Insights, mobile, median of three runs, Nov 12, 2026.', 'cb-note'),
 ))
@@ -188,13 +192,14 @@ S.append(slide('built', 'slide-terracotta',
             'Shipped as a WordPress Playground blueprint: the whole site boots in your browser.',
         ]),
     ]),
-    buttons(('Open it in the editor', '%HOME%/wp-admin/post.php?post=%PAGE_ID%&amp;action=edit', False), ('Code on GitHub', 'https://github.com/shotcowboystyle/wp-resume', True)),
+    buttons(('Open it in the editor', '%HOME%/wp-admin/post.php?post=%PAGE_ID%&amp;action=edit', False), ('Code on GitHub', 'https://github.com/shotcowboystyle/wp-resume', True, True)),
 ))
 S.append(slide('contact', 'slide-gold',
     h('Let’s talk'),
     p('Charleston, SC · Remote', 'is-style-eyebrow'),
-    p('<a href="mailto:curt.blanton@gmail.com">curt.blanton@gmail.com</a><br><a href="tel:+18435138134">843.513.8134</a>', 'cb-contact-lines'),
-    buttons(('Email me', 'mailto:curt.blanton@gmail.com', False), ('Portfolio', 'https://shotcowboystyle.github.io', True), ('LinkedIn', LINKEDIN, True, False, 'linkedin'), ('GitHub', GITHUB, True, False, 'github')),
+    # Plain text so it can be copied; the Email me button is the one mailto target.
+    p('curt.blanton@gmail.com<br><a href="tel:+18435138134">843.513.8134</a>', 'cb-contact-lines'),
+    buttons(('Email me', 'mailto:curt.blanton@gmail.com', False), ('Portfolio', utm(SITE, 'contact').replace('&', '&amp;'), True, True), ('LinkedIn', LINKEDIN, True, True, 'linkedin'), ('GitHub', GITHUB, True, True, 'github')),
     p('Ask AI about me', 'is-style-eyebrow cb-ask-label'),
     buttons(*[(n, h_, True, True, n.split()[0].lower()) for n, h_ in ASK_AI], cls='cb-ask'),
 ))

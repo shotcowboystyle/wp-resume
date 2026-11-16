@@ -12,7 +12,8 @@
 <!-- /wp:group -->
 <!-- wp:group {"className":"op-stack__steps"} -->
 <div class="wp-block-group op-stack__steps"><!-- wp:group {"className":"op-step"} -->
-<div class="wp-block-group op-step"><!-- wp:paragraph {"className":"op-step__num"} -->
+<div class="wp-block-group op-step"><!-- wp:group {"className":"op-step__body"} -->
+<div class="wp-block-group op-step__body"><!-- wp:paragraph {"className":"op-step__num"} -->
 <p class="op-step__num">1</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading {"className":"op-b-how__h"} -->
@@ -23,8 +24,11 @@
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
+</div>
+<!-- /wp:group -->
 <!-- wp:group {"className":"op-step"} -->
-<div class="wp-block-group op-step"><!-- wp:paragraph {"className":"op-step__num"} -->
+<div class="wp-block-group op-step"><!-- wp:group {"className":"op-step__body"} -->
+<div class="wp-block-group op-step__body"><!-- wp:paragraph {"className":"op-step__num"} -->
 <p class="op-step__num">2</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading {"className":"op-b-how__h"} -->
@@ -35,8 +39,11 @@
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
+</div>
+<!-- /wp:group -->
 <!-- wp:group {"className":"op-step"} -->
-<div class="wp-block-group op-step"><!-- wp:paragraph {"className":"op-step__num"} -->
+<div class="wp-block-group op-step"><!-- wp:group {"className":"op-step__body"} -->
+<div class="wp-block-group op-step__body"><!-- wp:paragraph {"className":"op-step__num"} -->
 <p class="op-step__num">3</p>
 <!-- /wp:paragraph -->
 <!-- wp:heading {"className":"op-b-how__h"} -->
@@ -45,6 +52,8 @@
 <!-- wp:paragraph {"className":"op-lede"} -->
 <p class="op-lede">Taxes calculated, filed and paid. A person is a call away.</p>
 <!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:group -->
 </div>

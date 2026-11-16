@@ -5,7 +5,9 @@ import { store, getElement } from '@wordpress/interactivity';
 const COOKIE = 'cb_consent';
 const read = () => {
 	const m = document.cookie.match( /(?:^|; )cb_consent=([^;]*)/ );
-	return m ? decodeURIComponent( m[ 1 ] ).split( ',' ).filter( Boolean ) : null;
+	return m
+		? decodeURIComponent( m[ 1 ] ).split( ',' ).filter( Boolean )
+		: null;
 };
 
 const { state } = store( 'cb/consent', {
@@ -57,8 +59,11 @@ const { state } = store( 'cb/consent', {
 
 function commit() {
 	const marketing = state.marketing && ! state.gpc;
-	const granted = [ state.analytics && 'analytics', marketing && 'marketing' ].filter( Boolean );
-	document.cookie = `${ COOKIE }=${ encodeURIComponent( granted.join( ',' ) ) }; Max-Age=${ 180 * 86400 }; Path=/; SameSite=Lax${ location.protocol === 'https:' ? '; Secure' : '' }`;
+	const granted = [
+		state.analytics && 'analytics',
+		marketing && 'marketing',
+	].filter( Boolean );
+	document.cookie = `${ COOKIE }=${ encodeURIComponent( granted.join( ',' ) ) }; Max-Age=${ 180 * 86400 }; Path=/; SameSite=Lax${ window.location.protocol === 'https:' ? '; Secure' : '' }`;
 	const ads = marketing ? 'granted' : 'denied';
 	window.gtag( 'consent', 'update', {
 		analytics_storage: state.analytics ? 'granted' : 'denied',
@@ -66,6 +71,11 @@ function commit() {
 		ad_user_data: ads,
 		ad_personalization: ads,
 	} );
-	window.dataLayer.push( { event: 'consent_update', consent_analytics: state.analytics, consent_marketing: marketing, gpc: state.gpc } );
+	window.dataLayer.push( {
+		event: 'consent_update',
+		consent_analytics: state.analytics,
+		consent_marketing: marketing,
+		gpc: state.gpc,
+	} );
 	state.open = false;
 }

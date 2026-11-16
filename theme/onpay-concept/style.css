@@ -74,7 +74,8 @@ img { max-width: 100%; height: auto; }
 .op-variant h2 strong, .op-hero__title strong { font-weight: 700; }
 .op-variant p strong { font-weight: 600; }
 
-.op-eyebrow { margin: 0; font-size: 20px; line-height: 32px; font-weight: 500; text-transform: uppercase; }
+/* margin-block only: margin-inline stays auto so it centres in .op-sec on wide screens. */
+.op-eyebrow { margin-block: 0; font-size: 20px; line-height: 32px; font-weight: 500; text-transform: uppercase; }
 .op-eyebrow + .wp-block-heading { margin-top: 8px; }
 .op-variant .wp-block-heading { margin-bottom: 16px; }
 .op-lede { max-width: 760px; }
@@ -83,7 +84,7 @@ img { max-width: 100%; height: auto; }
 .op-lede--narrow { max-width: 540px; }
 
 /* .op-link: 16px/32px 600, a green arrow after it */
-.op-link-row { margin: 0; padding-top: 36px; text-align: center; }
+.op-link-row { margin-block: 0; padding-top: 36px; text-align: center; }
 .op-link { display: inline-flex; align-items: center; gap: 10px; color: var(--wp--preset--color--heading); font-size: 16px; font-weight: 600; line-height: 32px; text-decoration: none; border-bottom: 1px solid transparent; }
 .op-link::after { content: ""; width: 16px; height: 12px; background: url("https://onpay.com/wp-content/themes/onpay-2024/images/Arrow_Up_Right_Green.svg") center / contain no-repeat; transition: transform 0.6s; }
 .op-link:hover::after { transform: rotate(45deg); }
@@ -134,7 +135,9 @@ img { max-width: 100%; height: auto; }
 .op-home-link--light-blue::before { background: #aed1fe; }
 .op-hero__title { max-width: 720px; margin: 8px auto 24px !important; font-size: 60px; line-height: 76px; }
 .op-hero__sub { max-width: 880px; margin: 0 auto 24px !important; }
-.op-hero-shot { position: relative; padding: 60px 20px; }
+/* Hero copy, dashboard shot and the awards title sit close, as on onpay.com. */
+.op-hero-wrap > * { margin-block: 0; }
+.op-hero-shot { position: relative; padding: 0 20px; }
 .op-hero-shot::before { content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 980px; transform: translateY(-50%); background: url("https://onpay.com/wp-content/themes/onpay-2024/images/background-blur.png") center / auto 100% no-repeat; pointer-events: none; }
 .op-hero__img { position: relative; max-width: 960px !important; margin: 0 auto !important; }
 .op-hero__img img { display: block; width: 100%; height: auto; aspect-ratio: 3185 / 2278; }
@@ -277,11 +280,31 @@ img { max-width: 100%; height: auto; }
 	.op-promo__title { font-size: 36px; line-height: 44px; }
 	.op-hero__title { font-size: 42px; line-height: 52px; }
 	.op-row > * { flex-basis: 45%; }
+	/* Two awards per row; the fifth centres under them at the same width. */
+	.op-row--5 { justify-content: center; }
+	.op-row--5 > * { flex: 0 1 calc(50% - 10px); min-width: 0; padding-inline: 16px; }
 	.op-row--3 > * { flex-basis: 100%; }
 	.op-tab__copy { max-width: none; padding-bottom: 20px; }
 	.op-support__img { padding: 0 0 24px; }
 	.op-footer__menu { flex-wrap: wrap !important; }
 	.op-footer__menu > .wp-block-column { flex-basis: 45% !important; }
+}
+
+/* Phones, matched to onpay.com at 390px: the header floats over the green promo
+   (logo and menu only), the promo is centred, and the hero buttons go full width. */
+@media (max-width: 600px) {
+	body:has(.op-variant--a .op-promo) .op-header { position: absolute; left: 0; right: 0; background: transparent !important; }
+	body:has(.op-variant--a .op-promo) .op-header__actions { display: none; }
+	body:has(.op-variant--a .op-promo) .op-header__left { flex: 1; justify-content: space-between; }
+	body:has(.op-variant--a .op-promo) .op-logo img { filter: brightness(0); }
+	body:has(.op-variant--a .op-promo) .op-nav .wp-block-navigation__responsive-container-open { color: var(--wp--preset--color--ink); }
+	.op-variant--a .op-promo { min-height: 0; padding: 100px 20px 36px; }
+	.op-variant--a .op-promo__inner { align-items: center; gap: 0; text-align: center; }
+	.op-variant--a .op-promo__title { margin: 4px 0 8px !important; font-size: 28px; line-height: 44px; }
+	.op-variant--a .op-promo__sub { font-size: 18px; line-height: 28px; }
+	.op-variant--a .op-promo .wp-block-buttons { justify-content: center; margin-top: 36px; }
+	.op-variant--a .op-hero .wp-block-buttons { flex-direction: column; align-items: stretch; gap: 10px; }
+	.op-variant--a .op-hero .wp-block-button__link { width: 100%; padding: 12px 16px; font-size: 16px; line-height: 32px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -312,7 +335,8 @@ img { max-width: 100%; height: auto; }
 .wp-block-heading.is-style-display {
 	font-size: var(--wp--preset--font-size--display);
 	font-weight: 700;
-	line-height: 0.98;
+	/* Room for descenders over the next line's ascenders (y over l in "by / real"). */
+	line-height: 1.08;
 	letter-spacing: -0.035em;
 	text-wrap: balance;
 }
@@ -398,10 +422,10 @@ img { max-width: 100%; height: auto; }
 	font-weight: 700;
 }
 
-.op-b-how__h { font-size: clamp(2.5rem, 5.5vw, 4.75rem); font-weight: 700; line-height: 1.02; letter-spacing: -0.03em; }
+.op-b-how__h { font-size: clamp(2.5rem, 5.5vw, 4.75rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
 
 .op-pull { margin: 0; padding: 0; border: 0; }
-.op-pull p { font-size: clamp(3rem, 9vw, 8.5rem); font-weight: 700; line-height: 1; letter-spacing: -0.04em; text-wrap: balance; }
+.op-pull p { font-size: clamp(3rem, 9vw, 8.5rem); font-weight: 700; line-height: 1.08; letter-spacing: -0.04em; text-wrap: balance; }
 .op-pull cite { display: block; margin-top: 2rem; font-size: 1.25rem; font-style: normal; }
 
 .op-b-cta .wp-block-buttons { margin-top: 1rem; }

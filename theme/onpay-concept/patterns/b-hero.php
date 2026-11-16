@@ -36,7 +36,8 @@
 </div>
 <!-- /wp:group -->
 <!-- wp:group {"className":"op-step"} -->
-<div class="wp-block-group op-step"><!-- wp:heading {"className":"is-style-display","textColor":"white"} -->
+<div class="wp-block-group op-step"><!-- wp:group {"className":"op-step__body"} -->
+<div class="wp-block-group op-step__body"><!-- wp:heading {"className":"is-style-display","textColor":"white"} -->
 <h2 class="wp-block-heading is-style-display has-white-color has-text-color">Ask a person.</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph {"className":"op-lede"} -->
@@ -44,13 +45,18 @@
 <!-- /wp:paragraph -->
 </div>
 <!-- /wp:group -->
+</div>
+<!-- /wp:group -->
 <!-- wp:group {"className":"op-step"} -->
-<div class="wp-block-group op-step"><!-- wp:heading {"className":"is-style-display","textColor":"white"} -->
+<div class="wp-block-group op-step"><!-- wp:group {"className":"op-step__body"} -->
+<div class="wp-block-group op-step__body"><!-- wp:heading {"className":"is-style-display","textColor":"white"} -->
 <h2 class="wp-block-heading is-style-display has-white-color has-text-color">Get the answer.</h2>
 <!-- /wp:heading -->
 <!-- wp:paragraph {"className":"op-lede"} -->
 <p class="op-lede">Specialists trained in-house on payroll and compliance, in every plan.</p>
 <!-- /wp:paragraph -->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:group -->
 </div>

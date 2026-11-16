@@ -402,6 +402,10 @@ def chrome():
 # ---- variant B: fewer words, bigger type, people first ---------------------
 
 def step(*inner, className=None):
+    # Scrolling steps wrap their copy in one body, so it can hold on screen
+    # (sticky) beside the pinned panel; the intro is the first screen and stays as is.
+    if className != "op-step--intro":
+        inner = [group(list(inner), className="op-step__body", layout=None)]
     return group(list(inner), className=cls("op-step", className), layout=None)
 
 

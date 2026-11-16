@@ -16,7 +16,7 @@ const load = ( host ) => {
 };
 
 if ( hosts.length && ! reduced && 'IntersectionObserver' in window ) {
-	const io = new IntersectionObserver(
+	const io = new window.IntersectionObserver(
 		( entries ) => {
 			for ( const e of entries ) {
 				if ( e.isIntersecting ) {
