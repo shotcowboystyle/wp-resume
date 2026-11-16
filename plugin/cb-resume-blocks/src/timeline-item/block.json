@@ -11,7 +11,8 @@
 		"start": { "type": "string", "default": "" },
 		"end": { "type": "string", "default": "" },
 		"title": { "type": "string", "default": "" },
-		"org": { "type": "string", "default": "" }
+		"org": { "type": "string", "default": "" },
+		"url": { "type": "string", "default": "" }
 	},
 	"allowedBlocks": [ "core/list", "core/paragraph" ],
 	"supports": { "html": false, "reusable": false },

@@ -5,7 +5,9 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 	InnerBlocks,
+	InspectorControls,
 } from '@wordpress/block-editor';
+import { PanelBody, TextControl } from '@wordpress/components';
 import metadata from './block.json';
 
 const field = (
@@ -36,6 +38,22 @@ registerBlockType( metadata.name, {
 		const f = ( ...args ) => field( attributes, setAttributes, ...args );
 		return (
 			<li { ...blockProps }>
+				<InspectorControls>
+					<PanelBody title={ __( 'Link', 'cb-resume-blocks' ) }>
+						<TextControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							type="url"
+							label={ __( 'Title links to', 'cb-resume-blocks' ) }
+							help={ __(
+								'Opens in a new tab. Add UTM tags for attribution.',
+								'cb-resume-blocks'
+							) }
+							value={ attributes.url }
+							onChange={ ( url ) => setAttributes( { url } ) }
+						/>
+					</PanelBody>
+				</InspectorControls>
 				<div className="wp-block-cb-timeline-item__date">
 					{ f(
 						'start',

@@ -25,6 +25,10 @@
     "org": {
       "type": "string",
       "default": ""
+    },
+    "url": {
+      "type": "string",
+      "default": ""
     }
   },
   "allowedBlocks": [
