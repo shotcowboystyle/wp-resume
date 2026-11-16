@@ -193,6 +193,69 @@ if ( slides.length ) {
 	cue.className = 'cb-scroll-cue';
 	cue.setAttribute( 'aria-hidden', 'true' );
 	slides[ 0 ].append( cue );
+
+	// Keyboard: arrows, Page Up/Down, Space and Home/End move a whole section at a time.
+	const keys = document.createElement( 'p' );
+	keys.className = 'cb-keys';
+	keys.setAttribute( 'aria-hidden', 'true' );
+	keys.innerHTML =
+		'<kbd>↑</kbd><kbd>↓</kbd> Jump between sections with your keyboard';
+	document.body.append( keys );
+	// The hint belongs to the first screen; any scroll retires it.
+	window.addEventListener(
+		'scroll',
+		() => window.scrollY > 24 && keys.classList.add( 'is-used' ),
+		{ passive: true }
+	);
+
+	document.addEventListener( 'keydown', ( e ) => {
+		if (
+			e.defaultPrevented ||
+			e.ctrlKey ||
+			e.metaKey ||
+			e.altKey ||
+			e.target.closest?.(
+				'input, textarea, select, button, [contenteditable]:not([contenteditable="false"])'
+			)
+		) {
+			return;
+		}
+		const dir = {
+			ArrowDown: 1,
+			PageDown: 1,
+			ArrowUp: -1,
+			PageUp: -1,
+			' ': e.shiftKey ? -1 : 1,
+			Home: -Infinity,
+			End: Infinity,
+		}[ e.key ];
+		if ( ! dir ) {
+			return;
+		}
+		const vh = window.innerHeight;
+		let i = 0;
+		slides.forEach( ( s, j ) => {
+			if ( s.getBoundingClientRect().top <= vh / 3 ) {
+				i = j;
+			}
+		} );
+		const behavior = motion ? 'smooth' : 'auto';
+		const r = slides[ i ].getBoundingClientRect();
+		// A slide much taller than the screen pages through its own content first.
+		const hidden =
+			( dir === 1 && r.bottom - vh ) || ( dir === -1 && -r.top ) || 0;
+		e.preventDefault();
+		keys.classList.add( 'is-used' );
+		if ( hidden > vh / 6 ) {
+			window.scrollBy( {
+				top: dir * Math.min( hidden, vh * 0.8 ),
+				behavior,
+			} );
+			return;
+		}
+		const to = Math.max( 0, Math.min( slides.length - 1, i + dir ) );
+		slides[ to ].scrollIntoView( { behavior } );
+	} );
 }
 
 const onScrollHeader = () =>

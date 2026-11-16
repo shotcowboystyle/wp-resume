@@ -1,16 +1,37 @@
 # wp-resume
 
-Curtis Blanton's resume, built as a WordPress site: a block theme plus a plugin of custom Gutenberg
-blocks, shipped as a [WordPress Playground](https://wordpress.org/playground/) blueprint. One link boots
-the whole site in your browser, logged in, with the editor a click away.
+Curtis Blanton's job application, built in WordPress. Each link opens a live site in your browser, nothing to install.
 
-**Open it:** [Launch the resume in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/shotcowboystyle/wp-resume/main/blueprint.json)
+- **[Resume](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/shotcowboystyle/wp-resume/main/blueprint.json)**
+- **[OnPay homepage A/B test](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/shotcowboystyle/wp-resume/main/blueprint-onpay.json)**: loads Variant A or B at random
+  - [Experiment A (control)](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/shotcowboystyle/wp-resume/main/blueprint-onpay.json&url=%2F%3Fcb_variant%3Da)
+  - [Experiment B (experts)](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/shotcowboystyle/wp-resume/main/blueprint-onpay.json&url=%2F%3Fcb_variant%3Db)
+
+---
+
+## About this repository
+
+<details>
+<summary>Contents</summary>
+
+- [What's inside](#whats-inside)
+  - [Blocks](#blocks)
+  - [Measurement](#measurement)
+  - [SEO and schema](#seo-and-schema)
+  - [Plugins in the blueprint](#plugins-in-the-blueprint)
+- [OnPay homepage A/B test (second blueprint)](#onpay-homepage-ab-test-second-blueprint)
+- [Develop](#develop)
+
+</details>
+
+A block theme plus a plugin of custom Gutenberg blocks, shipped as [WordPress Playground](https://wordpress.org/playground/)
+blueprints. The links above boot the whole site, logged in, with the editor a click away.
 
 ## What's inside
 
 | Path | What it is |
 | --- | --- |
-| `theme/cb-resume` | Block theme. `theme.json` tokens (palette, Montserrat + Open Sans self-hosted variable fonts, fluid type), full-screen slides as `core/group` block styles, scroll-snap and IntersectionObserver fade-up reveals with per-letter headings (off under `prefers-reduced-motion`). No jQuery, no page builder. |
+| `theme/cb-resume` | Block theme. `theme.json` tokens (palette, Montserrat + Open Sans self-hosted variable fonts, fluid type), full-screen slides as `core/group` block styles, scroll-snap and IntersectionObserver fade-up reveals with per-letter headings (off under `prefers-reduced-motion`), keyboard section jumps (arrows, Page Up/Down, Space, Home/End). No jQuery, no page builder. |
 | `plugin/cb-resume-blocks` | Custom blocks, each with `block.json` and a PHP `render.php`. |
 | `blueprint.json` | Installs the plugins below, the theme and blocks from this repo, then seeds the resume page. |
 | `dev/blueprint.dev.json` | Same, but for local dev with the folders mounted. |
@@ -46,8 +67,6 @@ Yoast SEO, GTM4WP, Advanced Custom Fields, Performance Lab, Accessibility Checke
 Query Monitor, Simple History.
 
 ## OnPay homepage A/B test (second blueprint)
-
-**Open it:** [Launch the OnPay A/B test in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/shotcowboystyle/wp-resume/main/blueprint-onpay.json)
 
 onpay.com's homepage rebuilt as a reusable block theme, running a server-side A/B test. Concept for a job
 application; not affiliated with OnPay. The **Experiment brief** page in the header has the hypothesis,
